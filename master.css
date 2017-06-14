@@ -1,0 +1,45 @@
+div#nav {
+    height: 60px;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.69);
+    width: 100%;
+
+}
+
+#nav img {
+    max-height: 81%;
+    padding-top: 4px;
+    padding-left: 4px;
+}
+
+.grab {
+  float: right;
+  height: 26px;
+
+  width: 40px;
+  margin: 17px;
+  display: inline-block;
+  }
+
+  .bars {
+    top: 5px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  }
+
+.bar {
+  height: 4px;
+  width: 100%;
+  background: white;
+  border-radius: 24px;
+}
+
+
+@media only screen and (min-width: 600px) {
+    .grab {
+      display: none;
+    }
+}
