@@ -13,6 +13,12 @@ angular.module('app', ['ui.router'])
 
         } )
 
+        .state('addpost', {
+            url: '/addpost',
+            templateUrl: "../views/forum/addpost.html",
+
+
+        } )
         $urlRouterProvider
             .otherwise('/')
     })

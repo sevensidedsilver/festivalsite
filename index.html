@@ -7,17 +7,41 @@
   <link rel="stylesheet" href="master.css">
   <link rel="stylesheet" href="/views/home/style.css">
   <link rel="stylesheet" href="/views/forum/forum-style.css">
-  <title>Rhapsody Festival | Easter NC</title></head>
+
+  <title>Rhapsody Festival | Eastern NC</title></head>
 <body ng-controller='homeCtrl'>
+
+
   <div id="nav">
-    <a href="/">
+
+
+
+
+
+
+
+    <a id="logolink" ui-sref="home" ng-click="hideMenu()">
       <img src="./images/logo.png" alt="Home logo">
     </a>
 
+    <div class="navMenu">
+
+        <div class="menuItem">
+          <p>HOME</p>
+        </div>
+        <div class="menuItem">
+          <p>FORUM</p>
+        </div>
+        <div class="menuItem">
+          <p>INFO</p>
+        </div>
+    
+    </div>
 
 
 
-    <div class="grab">
+
+    <div class="grab" ng-click = "togglemenu()">
       <div class="bars">
         <div class="bar bar1"></div>
         <div class="bar bar2"></div>
@@ -26,14 +50,27 @@
     </div>
   </div>
 
+  <div style="height: 60px"></div>
+  <div ng-class="menuclass">
+
+    <div class="mobile-menu-row">
+      <a ui-sref="home" ng-click="togglemenu()"><p>HOME</p></a>
+    </div>
+    <div class="mobile-menu-row">
+      <a ui-sref="forum" ng-click="togglemenu()"><p>TICKETS</p></a>
+    </div>
+    <div class="mobile-menu-row">
+      <a ui-sref="forum" ng-click="togglemenu()"><p>RHAPHORUM</p></a>
+    </div>
+    <div class="mobile-menu-row">
+      <a ui-sref="forum" ng-click="togglemenu()"><p>INFO</p></a>
+    </div>
+  </div>
 
 
-
-
-
-
-  <div style="height: 50px"></div>
   <ui-view></ui-view>
+
+
 
 
 

@@ -1,0 +1,26 @@
+{
+  "name": "rhapsody",
+  "version": "1.0.0",
+  "description": "This website will be developed around the Angular JS framework.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sevensidedsilver/festivalsite.git"
+  },
+  "author": "Sean Ruffolo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sevensidedsilver/festivalsite/issues"
+  },
+  "homepage": "https://github.com/sevensidedsilver/festivalsite#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "massive": "^3.0.0-rc1"
+  }
+}
