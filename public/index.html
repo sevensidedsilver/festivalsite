@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="master.css">
-  <link rel="stylesheet" href="/views/home/style.css">
-  <link rel="stylesheet" href="/views/forum/forum-style.css">
+
+  <link rel="stylesheet" href="./dist/all.css">
 
   <title>Rhapsody Festival | Eastern NC</title></head>
 <body ng-controller='homeCtrl'>
@@ -21,21 +20,21 @@
 
 
     <a id="logolink" ui-sref="home" ng-click="hideMenu()">
-      <img src="./images/logo.png" alt="Home logo">
+      <img src="./app/images/logo.png" alt="Home logo">
     </a>
 
     <div class="navMenu">
 
-        <div class="menuItem">
+        <div ui-sref="home" class="menuItem">
           <p>HOME</p>
         </div>
-        <div class="menuItem">
+        <div ui-sref="forum" class="menuItem">
           <p>FORUM</p>
         </div>
         <div class="menuItem">
           <p>INFO</p>
         </div>
-    
+
     </div>
 
 
@@ -50,7 +49,7 @@
     </div>
   </div>
 
-  <div style="height: 60px"></div>
+  <!-- <div style="height: 60px"></div> -->
   <div ng-class="menuclass">
 
     <div class="mobile-menu-row">
@@ -71,17 +70,41 @@
   <ui-view></ui-view>
 
 
+  <footer>
+    <div class="footerbits">
+      <div class="footerRow">
+        <div class="footerColumn">
+          maybe a menu?
+        </div>
+        <div class="footerColumn">
+          maybe some contact info?
+        </div>
+        <div class="footerColumn">
+          maybe associated sites?
+        </div>
+      </div>
 
+
+
+      <div class="footerRow">
+        <div class="copyright">
+          <p>Copyright 2017</p>
+          <p>Design/Dev by Sean Ruffolo</p>
+        </div>
+      </div>
+    </div>
+
+  </footer>
 
 
 </body>
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
-<script src="app.js"></script>
-<script src="controller.js"></script>
-<script src="service.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+
+<script src="./dist/all.js"></script>
 
 </html>

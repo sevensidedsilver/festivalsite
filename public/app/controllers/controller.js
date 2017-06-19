@@ -1,4 +1,4 @@
-angular.module('app').controller('homeCtrl', function($scope, homeSrv){
+angular.module('app').controller('homeCtrl', function($scope, $stateParams, homeSrv){
 
 // show the menu on click
   $scope.menuclass = "mobile-menu"
@@ -13,6 +13,11 @@ angular.module('app').controller('homeCtrl', function($scope, homeSrv){
   $scope.hideMenu = function (){
     $scope.menuclass = "mobile-menu"
   }
+  $scope.threads = homeSrv.dummyThreads;
+
+
+
+  // console.log($stateParams)
 
 
 })

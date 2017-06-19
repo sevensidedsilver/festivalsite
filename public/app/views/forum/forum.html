@@ -1,0 +1,43 @@
+<div style="height: 60px"></div>
+
+<div class="threadOuter">
+
+<h2>Rhaphorum - The Rhapsody Forum</h2>
+
+<div class="newThreadContain">
+  <button ui-sref="addpost" class="add-post" type="button" name="button">New Post</button>
+</div>
+
+
+
+  <div class="threadsContainer">
+    <div class="searchThreads">
+      <h4>Search:</h4>
+      <input ng-model="query" type="text" name="search" placeholder="seach by title or author">
+    </div>
+
+    <div class="threadslist" ng-repeat="thread in threads | filter:query">
+
+
+
+      <div class="threadItem">
+        <div class="thread">
+          <div class="threadTitle">
+            <h3 ui-sref="thread({id: thread.id})">{{thread.title}}</h3>
+          </div>
+            <div class="threadAuthor">
+              <p>submitted 2 hours ago by <a href="#" class="author">{{thread.author}}</a></p>
+            </div>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+
+
+
+.topSlideContain.ng-scope {
+    background-image: url("../app/images/fire-hoop.jpg");
+    background-size: cover;
+    height: 900px;
+    display: flex;
+    justify-content: center;
+    color:blue;
+    align-items: center;
+}
+
+.banner span {
+    background: black;
+}

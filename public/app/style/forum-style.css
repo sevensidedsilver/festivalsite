@@ -1,4 +1,24 @@
 
+button.flatRainbow {
+    width: 30%;
+    padding: 15px 5px;
+    background: #b6e3fb;
+    color: #484848;
+    border: 0;
+    font-size: 1.5em;
+    max-width: 200px;
+    min-width: 118px;
+  }
+
+button.flatRainbow:hover {
+  -webkit-animation:rainbow 1s infinite;
+  -ms-animation:rainbow 1s infinite;
+  -o-animation:rainbow 1s infinite;
+  animation:rainbow 1s infinite;
+  background: black;
+}
+
+
 .threadOuter {
     display: flex;
     justify-content: space-around;
@@ -53,6 +73,7 @@ button.add-post {
     border: solid #a4b7c1;
     font-size: 15px;
     margin-bottom: 11px;
+    margin-top: 14px;
 }
 
 button.add-post:hover {
@@ -63,6 +84,11 @@ button.add-post:hover {
 -o-animation:rainbow 1s infinite;
 animation:rainbow 1s infinite;
 
+}
+
+.searchThreads {
+    /* float: left; */
+    width: 100%;
 }
 
 
@@ -107,6 +133,8 @@ textarea {
 h2 {
     padding: 17px;
 }
+
+
 
 button.submitPostButton {
   width: 30%;
@@ -181,8 +209,50 @@ animation:rainbow 1s infinite;
 100% {color: #ff0080;}
 }
 
+/* in thread */
+
+.ThreadInfo {
+    margin: 20px 0 20px;
+    background: #efefef;
+    padding: 7px;
+    border-radius: 4px;
+}
+
+.inTheThread.ng-scope {
+    padding: 8px;
+}
+
+.ThreadInfo h1 {
+    font-size: 2em;
+    padding-bottom: 9px;
+}
+
+.ThreadInfo p {
+    font-size: 12px;
+
+}
+
+.threadText {
+    margin-top: 18px;
+}
+.commentInfo {
+  display: flex;
+}
+a.expand {
+    padding-right: 3px;
+}
+ul.flat-list.buttons {
+    display: flex;
+}
+
 @media only screen and (min-width: 600px) {
     .threadsContainer {
+        max-width:   75%;
+    }
+    .inTheThread.ng-scope {
+    max-width: 70%;
+}
+    .searchThreads {
         max-width:   75%;
     }
 }

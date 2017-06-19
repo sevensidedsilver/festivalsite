@@ -3,22 +3,27 @@ angular.module('app', ['ui.router'])
       $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: "../views/home/home.html"
+            templateUrl: "./app/views/home/home.html"
         })
 
         .state('forum', {
             url: '/forum',
-            templateUrl: "../views/forum/forum.html",
+            templateUrl: "./app/views/forum/forum.html",
             title: 'Rha - Phorum'
 
         } )
 
         .state('addpost', {
             url: '/addpost',
-            templateUrl: "../views/forum/addpost.html",
+            templateUrl: "./app/views/forum/addpost.html",
 
 
         } )
+        .state('thread', {
+              url: '/thread/:id',
+              templateUrl: "./app/views/forum/thread.html",
+
+          })
         $urlRouterProvider
             .otherwise('/')
     })
