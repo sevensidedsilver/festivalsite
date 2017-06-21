@@ -1,5 +1,6 @@
 angular.module('app').controller('homeCtrl', function($scope, $stateParams, homeSrv){
 
+
 // show the menu on click
   $scope.menuclass = "mobile-menu"
   $scope.togglemenu = function(){
@@ -10,14 +11,29 @@ angular.module('app').controller('homeCtrl', function($scope, $stateParams, home
     }
   }
 
+
+
+
+
   $scope.hideMenu = function (){
     $scope.menuclass = "mobile-menu"
   }
-  $scope.threads = homeSrv.dummyThreads;
+
+  $scope.getThreads = function(){
+
+    homeSrv.openThreads().then(function(resp){
+      // console.log(resp.data)
+      $scope.threads = resp.data
+
+    })
+
+}
+
+  $scope.getThreads()
+
+// assign threads to the scope
 
 
-
-  // console.log($stateParams)
 
 
 })

@@ -16,17 +16,17 @@
       <input ng-model="query" type="text" name="search" placeholder="seach by title or author">
     </div>
 
-    <div class="threadslist" ng-repeat="thread in threads | filter:query">
+    <div class="threadslist" ng-repeat="thread in threads | filter:query | orderBy: thread_id : true">
 
 
 
       <div class="threadItem">
         <div class="thread">
           <div class="threadTitle">
-            <h3 ui-sref="thread({id: thread.id})">{{thread.title}}</h3>
+            <h3 ui-sref="thread({thread_id: thread.thread_id})">{{thread.thread_title}}</h3>
           </div>
             <div class="threadAuthor">
-              <p>submitted 2 hours ago by <a href="#" class="author">{{thread.author}}</a></p>
+              <p>{{time}} by <a href="#" class="author">{{thread.author_display}}</a></p>
             </div>
         </div>
       </div>

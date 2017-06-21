@@ -16,6 +16,8 @@ button.flatRainbow:hover {
   -o-animation:rainbow 1s infinite;
   animation:rainbow 1s infinite;
   background: black;
+  cursor: url("../app/images/cursor.png"), auto;
+  transition: .5s;
 }
 
 
@@ -69,11 +71,11 @@ button.add-post {
     padding: 9px 5px;
     background: #b6e3fb;
     color: #484848;
-    border-width: 4px;
-    border: solid #a4b7c1;
+    border: 0;
     font-size: 15px;
     margin-bottom: 11px;
     margin-top: 14px;
+
 }
 
 button.add-post:hover {
@@ -83,6 +85,7 @@ button.add-post:hover {
 -ms-animation:rainbow 1s infinite;
 -o-animation:rainbow 1s infinite;
 animation:rainbow 1s infinite;
+  cursor: url("../app/images/cursor.png"), auto;
 
 }
 
@@ -143,17 +146,18 @@ button.submitPostButton {
   background: #b6e3fb;
 
   color: #484848;
-  border-width: 4px;
-  border: solid #a4b7c1;
+  border-width: 0;
 }
 
 button.submitPostButton:hover {
-  cursor: pointer;
+  cursor: url("../app/images/cursor.png"), auto;
   background: black;
   -webkit-animation:rainbow 1s infinite;
 -ms-animation:rainbow 1s infinite;
 -o-animation:rainbow 1s infinite;
 animation:rainbow 1s infinite;
+
+
 /*border: black;*/
 }
 @-webkit-keyframes rainbow {
@@ -208,7 +212,7 @@ animation:rainbow 1s infinite;
 90% {color: #8000ff;}
 100% {color: #ff0080;}
 }
-
+/* up in the thread up up up up up ================= */
 /* in thread */
 
 .ThreadInfo {
@@ -235,6 +239,40 @@ animation:rainbow 1s infinite;
 .threadText {
     margin-top: 18px;
 }
+
+.selectedCommentOrder {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.newComment {
+    display: flex;
+    flex-direction: column;
+}
+
+.newComment button {
+
+  width: 150px;
+  margin: 10px 0 10px;
+  border-radius: 0;
+  border: 0;
+  padding: 7px;
+
+}
+
+.newComment button:hover {
+  -webkit-animation:rainbow 1s infinite;
+  -ms-animation:rainbow 1s infinite;
+  -o-animation:rainbow 1s infinite;
+  animation:rainbow 1s infinite;
+  background: black;
+    cursor: url("../app/images/cursor.png"), auto;
+}
+.newComment textarea {
+    width: 307px;
+}
+
 .commentInfo {
   display: flex;
 }
@@ -244,6 +282,8 @@ a.expand {
 ul.flat-list.buttons {
     display: flex;
 }
+
+
 
 @media only screen and (min-width: 600px) {
     .threadsContainer {

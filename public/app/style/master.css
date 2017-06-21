@@ -140,7 +140,7 @@ a#logolink {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  top: 60px;
 }
 .show-mobile-menu {
   left: 0%;
@@ -209,5 +209,6 @@ align-items: center;
     .navMenu {
       display: flex;
       transition: 1s;
+      margin-right: 15px;
     }
 }

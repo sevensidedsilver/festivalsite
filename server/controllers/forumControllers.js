@@ -8,6 +8,22 @@ module.exports = {
       res.status(200).send(resp)
     })
   },
+// create new users
+  newuser : function (req, res) {
+    let id = req.body.id
+    let username = req.body.username
+    let admin = 0
+    app.get('db').new_user([id, username, admin]).then(function(resp){
+
+      res.status(200).send(resp)
+
+    })
+
+
+  },
+
+
+
 
 // fetch all threads
   fetchThreads : function(req, res) {

@@ -7,10 +7,47 @@
     height: 900px;
     display: flex;
     justify-content: center;
-    color:blue;
-    align-items: center;
+
+
 }
 
 .banner span {
-    background: black;
+    background: rgba(0, 0, 0, 0.84);
+    padding-bottom: 5px;
+    color: #b1e6d5;
+}
+
+.banner {
+    font-size: 6em;
+    margin-top: 158px;
+  }
+
+.banner h1 {
+    display: inline;
+    margin-top: 23px;
+    line-height: 84px;
+}
+
+
+@media only screen and (min-width: 600px) {
+  .topSlideContain.ng-scope {
+    background-image: url(../app/images/fire-hoop.jpg);
+    background-size: cover;
+    height: 900px;
+    background-position: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: flex-start;
+
+}
+
+.banner {
+    font-size: 6em;
+    margin-top: 158px;
+    margin-left: 200px;
+}
+
 }

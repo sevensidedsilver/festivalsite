@@ -151,7 +151,8 @@ a#logolink {
   flex-direction: column;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  top: 60px; }
 
 .show-mobile-menu {
   left: 0%;
@@ -235,7 +236,8 @@ a#logolink {
     display: -ms-flexbox;
     display: flex;
     -webkit-transition: 1s;
-    transition: 1s; } }
+    transition: 1s;
+    margin-right: 15px; } }
 
 button.flatRainbow {
   width: 30%;
@@ -250,7 +252,10 @@ button.flatRainbow {
 button.flatRainbow:hover {
   -webkit-animation: rainbow 1s infinite;
   animation: rainbow 1s infinite;
-  background: black; }
+  background: black;
+  cursor: url("../app/images/cursor.png"), auto;
+  -webkit-transition: .5s;
+  transition: .5s; }
 
 .threadOuter {
   display: -webkit-box;
@@ -300,8 +305,7 @@ button.add-post {
   padding: 9px 5px;
   background: #b6e3fb;
   color: #484848;
-  border-width: 4px;
-  border: solid #a4b7c1;
+  border: 0;
   font-size: 15px;
   margin-bottom: 11px;
   margin-top: 14px; }
@@ -310,7 +314,8 @@ button.add-post:hover {
   cursor: pointer;
   background: black;
   -webkit-animation: rainbow 1s infinite;
-  animation: rainbow 1s infinite; }
+  animation: rainbow 1s infinite;
+  cursor: url("../app/images/cursor.png"), auto; }
 
 .searchThreads {
   /* float: left; */
@@ -359,11 +364,10 @@ button.submitPostButton {
   padding: 15px 5px;
   background: #b6e3fb;
   color: #484848;
-  border-width: 4px;
-  border: solid #a4b7c1; }
+  border-width: 0; }
 
 button.submitPostButton:hover {
-  cursor: pointer;
+  cursor: url("../app/images/cursor.png"), auto;
   background: black;
   -webkit-animation: rainbow 1s infinite;
   animation: rainbow 1s infinite;
@@ -417,6 +421,7 @@ button.submitPostButton:hover {
   100% {
     color: #ff0080; } }
 
+/* up in the thread up up up up up ================= */
 /* in thread */
 .ThreadInfo {
   margin: 20px 0 20px;
@@ -436,6 +441,41 @@ button.submitPostButton:hover {
 
 .threadText {
   margin-top: 18px; }
+
+.selectedCommentOrder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  list-style: none; }
+
+.newComment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.newComment button {
+  width: 150px;
+  margin: 10px 0 10px;
+  border-radius: 0;
+  border: 0;
+  padding: 7px; }
+
+.newComment button:hover {
+  -webkit-animation: rainbow 1s infinite;
+  animation: rainbow 1s infinite;
+  background: black;
+  cursor: url("../app/images/cursor.png"), auto; }
+
+.newComment textarea {
+  width: 307px; }
 
 .commentInfo {
   display: -webkit-box;
@@ -467,14 +507,38 @@ ul.flat-list.buttons {
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
-  color: blue;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center; }
+  justify-content: center; }
 
 .banner span {
-  background: black; }
+  background: rgba(0, 0, 0, 0.84);
+  padding-bottom: 5px;
+  color: #b1e6d5; }
+
+.banner {
+  font-size: 6em;
+  margin-top: 158px; }
+
+.banner h1 {
+  display: inline;
+  margin-top: 23px;
+  line-height: 84px; }
+
+@media only screen and (min-width: 600px) {
+  .topSlideContain.ng-scope {
+    background-image: url(../app/images/fire-hoop.jpg);
+    background-size: cover;
+    height: 900px;
+    background-position: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: flex-start; }
+  .banner {
+    font-size: 6em;
+    margin-top: 158px;
+    margin-left: 200px; } }
 
 /* CSS reset! */
 tml, body, div, span, applet, object, iframe,

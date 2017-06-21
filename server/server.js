@@ -7,6 +7,8 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const config = require('../config.js');
 const LOCALconfig = require('../LOCALconfig.js');
+const moment = require('moment');
+
 
 var forumController = require('./controllers/forumControllers.js')
 
@@ -27,6 +29,27 @@ app.use(session({
   secret: config.sessionSecret
 }))
 
+//// MASSIVE DB ==========================================
+massive({
+	host: "localhost",
+	port: 5432,
+	database: LOCALconfig.database
+// user: config.dbuser,
+// password: config.dbpass
+
+}).then(db => {
+	app.set('db', db);
+});
+
+// create tables if they don't exist ========================================
+
+// create table IF NOT EXISTS threads
+// (thread_id serial primary key,
+//  author_id integer references users.user_id,
+//  author_display text,
+//
+
+
 
 
 // initialize auth0 =========================================
@@ -41,8 +64,15 @@ passport.use(new Auth0Strategy({
 }, function(accessToken, refreshToken, extraParams, profile, done){
   //console.log(profile)
 
+  //if user doesnt EXISTS, add to database
 
-  return done(null, profile);
+  //if user doesn't exist
+
+
+  // add user to database with id, display_name
+
+
+  return done(null, user);
 }))
 
 
@@ -64,9 +94,7 @@ app.get('/auth/callback',
 
 // create deserialize/ serializer methods on passport
 passport.serializeUser(function(user, done) {
-
   done(null, user);
-
 });
 
 passport.deserializeUser(function(obj, done) {
@@ -93,20 +121,20 @@ app.get('/auth/logout', function(req, res) {
 
 
 
-//// MASSIVE DB ==========================================
-massive({
-	host: "localhost",
-	port: 5432,
-	database: LOCALconfig.database
-// user: config.dbuser,
-// password: config.dbpass
 
-}).then(db => {
-	app.set('db', db);
-});
+
+
 
 // FORUM endpoints ===========================================================
 app.get('/users', forumController.fetchUsers)
+
+
+//create new user
+app.post('/newuser', forumController.newuser)
+
+
+
+
 
 app.get('/threads', forumController.fetchThreads)
 

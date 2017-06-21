@@ -4,17 +4,41 @@
   <button type="button" ui-sref="forum" class = "flatRainbow" name="toForum">Back To Forum</button>
 
 <div class="ThreadInfo">
-  <h1>Thread Title Will Be Here</h1>
-  <p>by threadauthor + ___ hours/mins/days ago</p>
+  <h1>{{thread.thread_title}}</h1>
+  <p>by {{thread.author_name}} hours/mins/days ago</p>
 
   <div class="threadText">
-    <p>I mean, it's broken or it isn't, right?
-        Edit: Before commenting and telling me to read the fucking article about this, please read the SECOND PART OF THE SENTENCE.
-        I mean, Jesus. The question is about ALL the people who were on the malfunctioning machine, not the one who claimed a jackpot</p>
+    <p>{{thread.thread_content}}</p>
   </div>
 </div>
 
+<div class="commentCounter">
+  <p>### of comments </p>
+</div>
 
+
+  <hr style="border-top: dotted 1px;" />
+  <!-- <div class="selectedCommentOrder">
+    <div class="currentOrder">
+      <p>Sort By: <span>NEWEST</span></p>
+    </div>
+
+
+    <div class="commentOrderList">
+      <li>OLDEST</li>
+      <li>HOTTEST</li>
+    </div>
+  </div> -->
+
+
+
+
+<div class="newComment">
+  <textarea rows="4" placeholder="type a new, top level comment"></textarea>
+
+
+  <button class="saveNewComment" type="submit" name="button">Post!</button>
+</div>
 
 
 
@@ -24,7 +48,15 @@
 
 
 
-  <div class="entry unvoted"><p class="tagline"><a href="javascript:void(0)" class="expand" onclick="return togglecomment(this)">[–]</a><a href="https://www.reddit.com/user/mredding" class="author may-blank id-t2_3y1ul">mredding</a><span class="userattrs"></span>  <time title="Fri Jun 16 14:45:14 2017 UTC" datetime="2017-06-16T14:45:14+00:00" class="live-timestamp">6 hours ago</time><time class="edited-timestamp" title="last edited 4 hours ago" datetime="2017-06-16T15:44:47+00:00">*</time><a href="javascript:void(0)" class="numchildren" onclick="return togglecomment(this)">(1304 children)</a></p><form action="#" class="usertext warn-on-unload" onsubmit="return post_form(this, 'editusertext')" id="form-t1_dizi3imc0f"><input type="hidden" name="thing_id" value="t1_dizi3im"><div class="usertext-body may-blank-within md-container "><div class="md"><p>Software developer here,</p>
+  <div class="top-level-comment">
+    <p class="tagline"><a href="javascript:void(0)" class="expand" onclick="return togglecomment(this)">[–]</a>
+      <a href="https://www.reddit.com/user/mredding" class="author may-blank id-t2_3y1ul">mredding</a>
+      <span class="userattrs"></span>  <time title="Fri Jun 16 14:45:14 2017 UTC" datetime="2017-06-16T14:45:14+00:00" class="live-timestamp">6 hours ago</time>
+
+    </p>
+
+    <form action="#" class="usertext warn-on-unload" onsubmit="return post_form(this, 'editusertext')" id="form-t1_dizi3imc0f">
+      <input type="hidden" name="thing_id" value="t1_dizi3im"><div class="usertext-body may-blank-within md-container "><div class="md"><p>Software developer here,</p>
 
   <p>I wrote software for these one-armed bandits for ~5 years. Detecting a fault in the machine isn't too hard, I suppose, though I never had to do it. If the machine is a "participation" game, then some of the winnings of each game are paid out to the manufacturer, because just making and selling machines isn't profitable enough to stay in business. The catch is the manufacturer pays out the jackpots, not the casino. So the casino doesn't give a shit if you hit 10 jackpots in a row, and neither do the commissioners, for them, they're just doing their job.</p>
 

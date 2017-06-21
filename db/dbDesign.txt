@@ -1,0 +1,21 @@
+each user ID
+
+each thread ID
+each thread author (user ID)
+
+
+each comment ID
+each comment author (userID)
+each comment thread ID
+each comment optional parent comment (comment ID)
+
+
+
+timestamps needed for each thread AND comment
+
+
+
+
+
+later :
+upvotes and downvotes for each thread / comment 

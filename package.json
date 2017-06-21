@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sevensidedsilver/festivalsite#readme",
   "dependencies": {
     "angular-auth0": "^2.0.0-beta.2",
+    "angular-moment": "^1.0.1",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
@@ -29,7 +30,9 @@
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
     "massive": "^3.0.0-rc1",
+    "moment": "^2.18.1",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-auth0": "^0.6.0"
