@@ -169,19 +169,25 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, a
   };
 
   // this gets the session and pulls the displayName from it
-  $http({
-    method: "GET",
-    url: '/auth/me'
-  }).then(function (response) {
+  // $http({
+  //    method: "GET",
+  //    url: '/auth/me'
+  //  }).then((response) => {
+  //
+  //        if(!response.data.user) {
+  //            $window.location = "http://localhost:3000/auth"
+  //            defer.reject()
+  //       //  } else {
+  //        //
+  //       //   //  $scope.display_name = response.data.user.displayName
+  //       //   //  $http({
+  //       //   //    method: "PUT",
+  //       //   //    url
+  //        //
+  //       //    })
+  //        }
+  //    })
 
-    if (!response.data.user) {
-      $window.location = "http://localhost:3000/auth";
-      defer.reject();
-    } else {
-
-      $scope.display_name = response.data.user.displayName;
-    }
-  });
 });
 'use strict';
 

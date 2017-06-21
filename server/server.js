@@ -62,15 +62,27 @@ passport.use(new Auth0Strategy({
   clientSecret: config.auth0.clientSecret,
   callbackURL: 'http://localhost:3000' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
-  //console.log(profile)
 
+  let user = {
+    id: profile.id,
+    display_name: profile.displayName
+  }
   //if user doesnt EXISTS, add to database
 
-  //if user doesn't exist
+  if (app.get('/testuser', testuser(user.id))){
+
+
+    app.post('/newuser', forumController.newuser)
+
+  }  
+
+
+
+  //if user does exist exist
 
 
   // add user to database with id, display_name
-
+  app.post('/newuser', forumController.newuser)
 
   return done(null, user);
 }))

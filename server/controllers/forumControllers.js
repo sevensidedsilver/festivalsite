@@ -10,18 +10,21 @@ module.exports = {
   },
 // create new users
   newuser : function (req, res) {
-    let id = req.body.id
-    let username = req.body.username
+    let id = user.id
+    let username = user.display_name
     let admin = 0
-    app.get('db').new_user([id, username, admin]).then(function(resp){
-
+    req.app.get('db').create_user([id, username, admin]).then(function(resp){
       res.status(200).send(resp)
-
     })
-
-
   },
 
+// if user EXISTS
+  testuser : function (req,res) {
+    req.app.get('db').ifUserExists(id).then(function(resp){
+      res.status(200).send(true)
+    })
+
+  }
 
 
 
