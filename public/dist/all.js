@@ -134,18 +134,21 @@ angular.module('app').controller('forumCtrl', function (authService, $scope, $st
   $scope.getThreads = function () {
 
     homeSrv.openThreads().then(function (resp) {
+      //console.log(resp)
 
+      resp.data.forEach(function (el) {
+
+        el.timeAgo = moment(el.created_at, "YYYYMMDD, h:mm:ss").fromNow();
+      });
       $scope.threads = resp.data;
     });
   };
 
   $scope.getThreads();
-
-  $scope.time = moment("20170621, 7:14:44", "YYYYMMDD, h:mm:ss").fromNow();
 });
 'use strict';
 
-angular.module('app').controller('newPostCtrl', function (postService, $state, authService, $scope, $http, $window, $stateParams, homeSrv) {
+angular.module('app').controller('newPostCtrl', function (postService, $state, threadService, authService, $scope, $http, $window, $stateParams, homeSrv) {
 
   //create post on button click and push to database
 
@@ -154,13 +157,10 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, a
       thread_author: $scope.display_name,
       thread_title: $scope.postTitle,
       thread_content: $scope.postText
-    };
+      //new Date(year, month, day, hours, minutes, seconds)
 
-    $http({
-      method: "POST",
-      url: "/newthread",
-      data: data
-    }).then(function () {
+      //  console.log(data.created_at)
+    };threadService.postThread(data).then(function (resp) {
       // whatever you want to do after the posting goes here!
       $scope.postTitle = "";
       $scope.postText = "";
@@ -168,26 +168,25 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, a
     });
   };
 
-  // this gets the session and pulls the displayName from it
-  // $http({
-  //    method: "GET",
-  //    url: '/auth/me'
-  //  }).then((response) => {
-  //
-  //        if(!response.data.user) {
-  //            $window.location = "http://localhost:3000/auth"
-  //            defer.reject()
-  //       //  } else {
-  //        //
-  //       //   //  $scope.display_name = response.data.user.displayName
-  //       //   //  $http({
-  //       //   //    method: "PUT",
-  //       //   //    url
-  //        //
-  //       //    })
-  //        }
-  //    })
+  //this gets the session and pulls the displayName from it
+  $http({
+    method: "GET",
+    url: '/auth/me'
+  }).then(function (response) {
 
+    if (!response.data.user) {
+      $window.location = "http://localhost:3000/auth";
+      defer.reject();
+    } else {
+
+      $scope.display_name = response.data.user[1];
+      //  $http({
+      //    method: "PUT",
+      //    url
+      //
+      //  })
+    }
+  });
 });
 'use strict';
 
@@ -197,10 +196,24 @@ angular.module('app').controller('thread', function ($scope, $http, $window, $st
   homeSrv.findThread($stateParams.thread_id).then(function (resp) {
     //console.log(resp)
     $scope.thread = resp.data[0];
+
+    $scope.thread.timeAgo = moment($scope.thread.created_at, "YYYYMMDD, h:mm:ss").fromNow();
   }
   // console.log($stateParams.thread_id)
 
-  );
+
+  // '/'/'/'/'/'/'/'/'/'/'/'/
+  // submit a new top level comment to a thread
+  );$scope.addComment = function () {
+    console.log("fire");
+    var data = {
+      thread_id: $scope.thread.thread_id,
+      parent_comment: 0,
+      author_display: ""
+    };
+  };
+
+  // END OF MODULE ///////////////////////////////////////////////////////////////
 });
 'use strict';
 
@@ -275,12 +288,22 @@ angular.module('app').service('homeSrv', function ($http) {
   };
 
   // moment JS to get the "X hours ago" for comments and threads
-  this.liveTime = function (time) {
-    //conver dis 2017-06-21T15:44:08.049Z
 
+  this.timeFrom = function (time) {
+    return moment(time, "YYYYMMDD, h:mm:ss").startOf('seconds').fromNow();
+  };
+});
+'use strict';
 
-    //into dis 20170621, h:mm:ss
+angular.module('app').service('threadService', function ($http) {
 
+  // post http
+  this.postThread = function (data) {
+    return $http({
+      method: "POST",
+      url: "/newthread",
+      data: data
+    });
   };
 });
 //# sourceMappingURL=all.js.map

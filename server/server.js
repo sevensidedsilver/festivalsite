@@ -7,7 +7,10 @@ const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
 const config = require('../config.js');
 const LOCALconfig = require('../LOCALconfig.js');
+
+
 const moment = require('moment');
+// moment().tz("Europe/Berlin").format();
 
 
 var forumController = require('./controllers/forumControllers.js')
@@ -63,28 +66,35 @@ passport.use(new Auth0Strategy({
   callbackURL: 'http://localhost:3000' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
-  let user = {
-    id: profile.id,
-    display_name: profile.displayName
-  }
+  let user = [
+    profile.id,
+    profile.displayName,
+    0
+  ]
+
   //if user doesnt EXISTS, add to database
 
-  if (app.get('/testuser', testuser(user.id))){
 
+  // looks for existing id
+  app.get('db').ifUserExists([user[0]]).then(function(resp){
 
-    app.post('/newuser', forumController.newuser)
+    if (resp.length < 1) {
+      // console.log(user)
+      app.get('db').create_user(user).then(function(resp){
+        console.log(resp)
+      })
 
-  }  
-
-
-
-  //if user does exist exist
+    }
+    console.log("already exists")
+  })
 
 
   // add user to database with id, display_name
   app.post('/newuser', forumController.newuser)
 
   return done(null, user);
+
+  // end of passport strategy
 }))
 
 

@@ -1,4 +1,4 @@
-angular.module('app').controller('newPostCtrl', function(postService, $state, authService, $scope, $http, $window, $stateParams, homeSrv){
+angular.module('app').controller('newPostCtrl', function(postService, $state, threadService, authService, $scope, $http, $window, $stateParams, homeSrv){
 
 
   //create post on button click and push to database
@@ -7,44 +7,40 @@ angular.module('app').controller('newPostCtrl', function(postService, $state, au
     var data = {
       thread_author: $scope.display_name,
       thread_title: $scope.postTitle,
-      thread_content: $scope.postText
+      thread_content: $scope.postText,
+//new Date(year, month, day, hours, minutes, seconds)
     }
-
-    $http({
-      method: "POST",
-      url: "/newthread",
-      data: data
-    }).then(function(){
+  //  console.log(data.created_at)
+    threadService.postThread(data).then(function(resp){
       // whatever you want to do after the posting goes here!
       $scope.postTitle = "";
       $scope.postText = "";
       $state.go('forum')
 
+
     })
-  }
+}
 
 
+  //this gets the session and pulls the displayName from it
+  $http({
+     method: "GET",
+     url: '/auth/me'
+   }).then((response) => {
 
+         if(!response.data.user) {
+             $window.location = "http://localhost:3000/auth"
+             defer.reject()
+         } else {
 
-  // this gets the session and pulls the displayName from it
-  // $http({
-  //    method: "GET",
-  //    url: '/auth/me'
-  //  }).then((response) => {
-  //
-  //        if(!response.data.user) {
-  //            $window.location = "http://localhost:3000/auth"
-  //            defer.reject()
-  //       //  } else {
-  //        //
-  //       //   //  $scope.display_name = response.data.user.displayName
-  //       //   //  $http({
-  //       //   //    method: "PUT",
-  //       //   //    url
-  //        //
-  //       //    })
-  //        }
-  //    })
+           $scope.display_name = response.data.user[1]
+          //  $http({
+          //    method: "PUT",
+          //    url
+           //
+          //  })
+         }
+     })
 
 
 

@@ -18,13 +18,7 @@ module.exports = {
     })
   },
 
-// if user EXISTS
-  testuser : function (req,res) {
-    req.app.get('db').ifUserExists(id).then(function(resp){
-      res.status(200).send(true)
-    })
 
-  }
 
 
 
@@ -47,11 +41,14 @@ module.exports = {
     let thread_author = req.body.thread_author
     let thread_title = req.body.thread_title
     let thread_content = req.body.thread_content
-    req.app.get('db').new_Thread([thread_author, thread_title, thread_content]).then(function(resp){
+
+    let created_at = new Date()
+    //console.log(created_at)
+    req.app.get('db').new_Thread([thread_author, thread_title, thread_content, created_at]).then(function(resp){
 
       res.status(200).send(resp)
 
-    })
+   })
   }
 
 

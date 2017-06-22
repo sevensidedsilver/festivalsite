@@ -19,14 +19,10 @@ angular.module('app').service('homeSrv', function($http){
     })
   }
 
-
 // moment JS to get the "X hours ago" for comments and threads
-  this.liveTime = function(time) {
-    //conver dis 2017-06-21T15:44:08.049Z
 
-
-    //into dis 20170621, h:mm:ss
-
+  this.timeFrom = function(time) {
+    return(moment(time, "YYYYMMDD, h:mm:ss" ).startOf('seconds').fromNow())
   }
 
 

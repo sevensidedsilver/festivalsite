@@ -5,7 +5,7 @@
 
 <div class="ThreadInfo">
   <h1>{{thread.thread_title}}</h1>
-  <p>by {{thread.author_name}} hours/mins/days ago</p>
+  <p>by {{thread.author_display}} {{thread.timeAgo}} hours/mins/days ago</p>
 
   <div class="threadText">
     <p>{{thread.thread_content}}</p>
@@ -37,7 +37,7 @@
   <textarea rows="4" placeholder="type a new, top level comment"></textarea>
 
 
-  <button class="saveNewComment" type="submit" name="button">Post!</button>
+  <button ng-click="addComment()" class="saveNewComment" type="submit" name="button">Post!</button>
 </div>
 
 
