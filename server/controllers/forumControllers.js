@@ -41,14 +41,24 @@ module.exports = {
     let thread_author = req.body.thread_author
     let thread_title = req.body.thread_title
     let thread_content = req.body.thread_content
-
     let created_at = new Date()
     //console.log(created_at)
     req.app.get('db').new_Thread([thread_author, thread_title, thread_content, created_at]).then(function(resp){
-
       res.status(200).send(resp)
-
    })
+ },
+
+  //create new comment
+  new_comment : function(req, res) {
+    let thread_id = req.body.thread_id
+    let parent_comment = 0
+    let author_display = req.body.author_display
+    let comment_content = req.body.comment_content
+    let created_at = new Date()
+    req.app.get('db').createcomment([thread_id, parent_comment, author_display, comment_content, created_at]).then(function(resp){
+      res.status(200).send(resp)
+    })
+
   }
 
 

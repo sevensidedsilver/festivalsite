@@ -167,6 +167,11 @@ app.get('/thread/:id', forumController.fetchoneThread)
 app.post('/newthread', forumController.new_thread)
 
 
+// post new comment ========================== POST NEW comment
+app.post('/newcomment', forumController.new_comment)
+
+
+
 // LISTENING ON PORT ===============================
 app.listen(port, () => {
 	console.log(`magic happens on port ${port}`)

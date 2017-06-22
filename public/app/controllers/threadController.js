@@ -1,4 +1,4 @@
-angular.module('app').controller('thread', function($scope, $http, $window, $stateParams, homeSrv){
+angular.module('app').controller('thread', function($scope, $state, threadService, $http, $window, $stateParams, homeSrv){
 
 
   // //fetches the thread data from service and assigns it to thread
@@ -10,7 +10,21 @@ angular.module('app').controller('thread', function($scope, $http, $window, $sta
   })
   // console.log($stateParams.thread_id)
 
+// get the display_name from the session object
+$http({
+   method: "GET",
+   url: '/auth/me'
+ }).then((response) => {
 
+       if(!response.data.user) {
+           $window.location = "http://localhost:3000/auth"
+           defer.reject()
+       } else {
+
+         $scope.display_name = response.data.user[1]
+
+       }
+   })
 
 
 // '/'/'/'/'/'/'/'/'/'/'/'/
@@ -20,10 +34,15 @@ angular.module('app').controller('thread', function($scope, $http, $window, $sta
     var data = {
       thread_id: $scope.thread.thread_id,
       parent_comment: 0,
-      author_display: ""
+      author_display: $scope.display_name,
+      comment_content: $scope.comment_content
     }
+    threadService.createComment(data).then(function(resp){
+      // after clicking the button, do this!
+      $scope.comment_content = "";
 
 
+    })
 
   }
 

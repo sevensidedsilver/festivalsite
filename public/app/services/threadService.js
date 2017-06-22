@@ -2,7 +2,7 @@ angular.module('app').service('threadService', function($http){
 
 
 
-// post http
+// post http posts to database
 this.postThread = function(data){
   return $http({
     method: "POST",
@@ -11,5 +11,17 @@ this.postThread = function(data){
   })
 }
 
+
+// post comment
+this.createComment = function(data){
+  return $http({
+    method: "POST",
+    url: "/newcomment",
+    data: data
+
+  })
+
+
+}
 
 })
