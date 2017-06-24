@@ -1,0 +1,59 @@
+<div style="height: 60px">
+
+</div>
+
+<div class="adminContain">
+  <h1>Welcome {{admin.display_name}}!</h1>
+
+  <p>Thank you for monitoring the forum.</p>
+
+  <p>The following threads / comments have been reported by other users.</p>
+
+  <p>Please use your discretion and delete any spam, as well as anything incriminating!</p>
+
+  <p>If a problem persists, please contact me <a href="mailto:sevensidedsilver@gmail.com">here</a> and we can brainstorm solutions.</p>
+
+  <p>Once you press the delete button, it's deleted. <strong>No backsies.</strong> You'll have to refresh to see it updated on this page.</p>
+
+  <div class="moderate">
+    <div class="modThreads">
+      <h2>Reported Threads</h2>
+
+      <div class="reportedThread" ng-repeat = "thread in threads">
+        <div class="repThreadInfo">
+          <h3><span class="administrate">title: </span>{{thread.thread_title}}</h3>
+          <p><span class="administrate">author:  </span>{{thread.author_display}}</p>
+
+          <p><span class="administrate">text:  </span>{{thread.thread_content}}</p>
+        </div>
+        <div class="adminButtons">
+          <button ng-click="deleteThread(thread.thread_id)" type="button" class="delete" name="delete">Delete Thread</button>
+          <button ng-click="dismissThread(thread.thread_id)" type="button" class="dismiss" name="delete">Dismiss Report</button>
+        </div>
+        <hr>
+      </div>
+
+    </div>
+
+    <div class="modComments">
+      <h2>Reported Comments</h2>
+      <div class="reportedcomment" ng-repeat= "comment in comments">
+        <div class="repcommentInfo">
+          <p><span class="administrate">In this thread: </span>{{comment.thread_title}}</p>
+
+          <p><span class="administrate">author: </span> {{comment.author_display}}</p>
+
+          <p class="adminComment">{{comment.comment_content}}</p>
+        </div>
+        <div class="adminButtons">
+          <button ng-click="deleteComment(comment.comment_id)" type="button" class="delete" name="delete">Delete Comment</button>
+          <button ng-click="dismissComment(comment.comment_id)" type="button" class="dismiss" name="delete">Dismiss Report</button>
+        </div>
+        <hr>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

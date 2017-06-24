@@ -76,12 +76,18 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
 
     // example from dallin
     ).state('admin', {
-        templateUrl: 'views/adminView.html',
+        templateUrl: './app/views/forum/admin.html',
         url: '/admin',
-        controller: 'mainCtrl',
+        controller: 'adminController',
         resolve: {
             user: function user(authService, $state) {
                 return authService.getCurrentUser().then(function (response) {
+                    //console.log(response.data.user[2])
+                    if (response.data.user[2] === 0) {
+                        window.alert("You are not an admin.");
+                        $state.go('forum');
+                    }
+
                     if (!response.data) {
                         window.location = "http://localhost:3000/auth";
                     }return response.data;
@@ -93,6 +99,75 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
     });
 
     $urlRouterProvider.otherwise('/');
+});
+'use strict';
+
+angular.module('app').controller('adminController', function (adminService, $state, threadService, authService, $scope, $http, $window, $stateParams, homeSrv) {
+
+  // get all reported comments
+  $scope.getReportedComments = function () {
+    adminService.getReportedComments().then(function (resp) {
+      $scope.comments = resp.data;
+    });
+  };
+  $scope.getReportedComments();
+
+  // get all reported threads
+  $scope.getReportedThreads = function () {
+    adminService.getReportedThreads().then(function (resp) {
+      $scope.threads = resp.data;
+    });
+  };
+  $scope.getReportedThreads();
+
+  // deletes a comment
+  $scope.deleteComment = function (comment_id) {
+
+    adminService.deleteComment(comment_id).then(function (resp) {
+      return resp;
+    });
+  };
+
+  // dismiss comment reported
+  $scope.dismissComment = function (comment_id) {
+
+    adminService.dismissComment(comment_id).then(function (resp) {
+      return resp;
+    });
+  };
+
+  // deletes a thread
+  $scope.deleteThread = function (thread_id) {
+    adminService.deleteThread(thread_id).then(function (resp) {
+      return resp;
+    });
+  };
+
+  //dismiss thread report
+  $scope.dismissThread = function (thread_id) {
+    adminService.dismissThread(thread_id).then(function (resp) {
+      return resp;
+    });
+  };
+
+  //this gets the session and pulls the displayName from it
+  $http({
+    method: "GET",
+    url: '/auth/me'
+  }).then(function (response) {
+
+    if (!response.data.user) {
+      $window.location = "http://localhost:3000/auth";
+      defer.reject();
+    } else {
+
+      $scope.display_name = response.data.user[1];
+      $scope.admin = {
+        display_name: $scope.display_name
+
+      };
+    }
+  });
 });
 'use strict';
 
@@ -178,13 +253,8 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, t
       $window.location = "http://localhost:3000/auth";
       defer.reject();
     } else {
-
-      $scope.display_name = response.data.user[1];
-      //  $http({
-      //    method: "PUT",
-      //    url
-      //
-      //  })
+      console.log(response.data.user[0].username);
+      $scope.display_name = response.data.user[0].username;
     }
   });
 });
@@ -192,12 +262,31 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, t
 
 angular.module('app').controller('thread', function ($scope, $state, threadService, $http, $window, $stateParams, homeSrv) {
 
+  // display all the top level comments for a thread
+  $scope.getcomments = function () {
+    //  console.log($scope.thread.thread_id)
+    var data = $scope.thread.thread_id;
+
+    threadService.getTopLevelComments(data).then(function (resp) {
+
+      resp.data.forEach(function (el) {
+
+        el.timeAgo = moment(el.created_at, "YYYYMMDD, h:mm:ss").fromNow();
+      });
+
+      $scope.topLevelComments = resp.data;
+
+      //  console.log($scope.topLevelComments)
+    });
+  };
+
   // //fetches the thread data from service and assigns it to thread
   homeSrv.findThread($stateParams.thread_id).then(function (resp) {
     //console.log(resp)
     $scope.thread = resp.data[0];
 
     $scope.thread.timeAgo = moment($scope.thread.created_at, "YYYYMMDD, h:mm:ss").fromNow();
+    $scope.getcomments();
   }
   // console.log($stateParams.thread_id)
 
@@ -212,7 +301,7 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
       defer.reject();
     } else {
 
-      $scope.display_name = response.data.user[1];
+      $scope.display_name = response.data.user[0].username;
     }
   }
 
@@ -226,13 +315,101 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
       author_display: $scope.display_name,
       comment_content: $scope.comment_content
     };
+
     threadService.createComment(data).then(function (resp) {
       // after clicking the button, do this!
       $scope.comment_content = "";
+      $scope.topLevelComments.push(data);
+    });
+  };
+
+  // report thread =====================================
+
+  $scope.reportThread = function (thread_id) {
+    threadService.reportThread(thread_id).then(function (resp) {
+      alert("Thanks, an admin will review your report soon");
+    });
+  };
+
+  // report a comment ===============================
+  $scope.reportComment = function (data) {
+    threadService.reportcomment(data).then(function (resp) {
+      alert("Thanks, an admin will review your report soon");
     });
   };
 
   // END OF MODULE ///////////////////////////////////////////////////////////////
+});
+'use strict';
+
+angular.module('app').service('adminService', function ($http) {
+
+  this.getReportedComments = function () {
+    return $http({
+      method: "GET",
+      url: "/reportedcomments"
+    }).then(function (resp) {
+      return resp;
+    });
+  };
+
+  this.getReportedThreads = function () {
+    return $http({
+      method: "GET",
+      url: "/reportedthreads"
+
+    }).then(function (resp) {
+      return resp;
+    });
+  };
+  // delete comment
+  this.deleteComment = function (comment_id) {
+    //console.log(comment_id)
+    return $http({
+      method: "DELETE",
+      url: "/delete/comments/comment_id/" + comment_id
+      //data must be an object!
+
+    }).then(function (resp) {
+      //console.log(data)
+      return resp;
+    });
+  };
+  // delete thread
+  this.deleteThread = function (thread_id) {
+
+    return $http({
+      method: "DELETE",
+      url: "/delete/threads/thread_id/" + thread_id
+      //data must be an object!
+
+    }).then(function (resp) {
+      //console.log(data)
+      return resp;
+    });
+  };
+  // dismiss comment
+  this.dismissComment = function (comment_id) {
+
+    return $http({
+      method: "PUT",
+      url: "/dismisscomment/" + comment_id
+
+    }).then(function (resp) {
+      return resp;
+    });
+  };
+  // dismiss thread
+  this.dismissThread = function (thread_id) {
+
+    return $http({
+      method: "PUT",
+      url: "/dismissthread/" + thread_id
+
+    }).then(function (resp) {
+      return resp;
+    });
+  };
 });
 'use strict';
 
@@ -323,6 +500,18 @@ angular.module('app').service('threadService', function ($http) {
       url: "/newthread",
       data: data
     });
+  },
+
+  // get top level comments for a threadService
+  this.getTopLevelComments = function (data) {
+    return $http({
+      method: "GET",
+      url: "/gettoplevelcomments/" + data
+
+    }).then(function (resp) {
+
+      return resp;
+    });
   };
 
   // post comment
@@ -331,7 +520,20 @@ angular.module('app').service('threadService', function ($http) {
       method: "POST",
       url: "/newcomment",
       data: data
+    });
+  },
 
+  // report a comment
+  this.reportcomment = function (data) {
+    // console.log(data)
+    return $http({
+      method: "PUT",
+      url: "/reportcomment/" + data
+    });
+  }, this.reportThread = function (data) {
+    return $http({
+      method: "PUT",
+      url: "/reportthread/" + data
     });
   };
 });

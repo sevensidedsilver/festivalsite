@@ -66,6 +66,8 @@ passport.use(new Auth0Strategy({
   callbackURL: 'http://localhost:3000' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
+
+
   let user = [
     profile.id,
     profile.displayName,
@@ -79,20 +81,27 @@ passport.use(new Auth0Strategy({
   app.get('db').ifUserExists([user[0]]).then(function(resp){
 
     if (resp.length < 1) {
-      // console.log(user)
       app.get('db').create_user(user).then(function(resp){
-        console.log(resp)
+
+        let user = resp
+        return done(null, user);
       })
 
+    } else {
+
+      let user = resp
+      return done(null, user);
     }
+
+
     console.log("already exists")
   })
 
 
   // add user to database with id, display_name
-  app.post('/newuser', forumController.newuser)
+  //app.post('/newuser', forumController.newuser)
 
-  return done(null, user);
+
 
   // end of passport strategy
 }))
@@ -171,6 +180,31 @@ app.post('/newthread', forumController.new_thread)
 app.post('/newcomment', forumController.new_comment)
 
 
+// REPORT a comment ============================ REPORT
+app.put('/reportcomment/:id', forumController.reportcomment)
+
+
+// report a thread ================================report
+app.put('/reportthread/:id', forumController.reportthread)
+
+// GET all reported comments for admin view =================== GET REPORTED
+app.get('/reportedcomments', forumController.reportedComments)
+// get all reported threads for adminview
+app.get('/reportedthreads', forumController.reportedThreads)
+
+// DELETE a reported comment in admin view
+app.delete('/delete/comments/comment_id/:id', forumController.deletecomment)
+// DISMISS a reported comment in admin view
+app.put('/dismisscomment/:id', forumController.dismisscomment)
+
+// DELETE a reported thread in admin view
+app.delete('/delete/threads/thread_id/:id', forumController.deletethread)
+// DISMISS a reported thread in admin view
+app.put('/dismissthread/:id', forumController.dismissthread)
+
+
+// GET ALL TOP LEVEL COMMENTS FOR A THREAD ==============get comments!
+app.get('/gettoplevelcomments/:id' , forumController.gettoplevelcomments)
 
 // LISTENING ON PORT ===============================
 app.listen(port, () => {

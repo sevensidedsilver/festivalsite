@@ -88,6 +88,7 @@ a#logolink {
     /* justify-content: space-between; */
     align-items: center;
     max-width: 100%;
+    color: #92D7FF;
 }
 .menuItem {
     height: 100%;

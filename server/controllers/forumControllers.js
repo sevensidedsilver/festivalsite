@@ -59,9 +59,85 @@ module.exports = {
       res.status(200).send(resp)
     })
 
-  }
+  },
 
+    gettoplevelcomments: function(req, res){
+      let thread_id = req.params.id
+      //console.log(req)
+      req.app.get('db').gettoplevelcomments([thread_id]).then(function(resp){
+        res.status(200).send(resp)
 
+      })
+
+    },
+
+// report a comment
+  reportcomment: function(req, res){
+    let comment_id = Number(req.params.id)
+    req.app.get('db').reportComment([comment_id]).then(function(resp){
+      res.status(200).send(resp)
+    })
+  },
+
+// report a thread
+  reportthread: function(req, res){
+    let thread_id = Number(req.params.id)
+    req.app.get('db').reportThread([thread_id]).then(function(resp){
+      res.status(200).send(resp)
+    })
+  },
+
+// GET ALL reported comments
+  reportedComments: function(req, res){
+    req.app.get('db').reportedComments().then(function(resp){
+      res.status(200).send(resp)
+    })
+
+  },
+
+// get all reported threadS
+  reportedThreads: function(req, res){
+    req.app.get('db').reportedThreads().then(function(resp){
+      res.status(200).send(resp)
+    })
+  },
+
+// delete a reported comment
+  deletecomment: function(req, res){
+    let data = [Number(req.params.id)]
+    //console.log(req.params.id)
+    req.app.get('db').deleteComment(data).then(function(resp){
+      res.status(200).send(resp)
+    })
+
+  },
+  // delete a reported thread
+    deletethread: function(req, res){
+      let data = [Number(req.params.id)]
+      //console.log(req.params.id)
+      req.app.get('db').deleteThread(data).then(function(resp){
+        res.status(200).send(resp)
+      })
+
+    },
+// DISMISS a reported comment
+  dismisscomment: function(req, res){
+    let data = [Number(req.params.id)]
+    req.app.get('db').dismissComment(data).then(function(resp){
+      res.status(200).send(resp)
+    })
+
+    //req.app.get('db').dismiss(['comments', 'comment_id', req.data.id])
+  },
+  // DISMISS a reported thread
+    dismissthread: function(req, res){
+      let data = [Number(req.params.id)]
+      req.app.get('db').dismissThread(data).then(function(resp){
+        res.status(200).send(resp)
+      })
+
+      //req.app.get('db').dismiss(['comments', 'comment_id', req.data.id])
+    }
 
 
 

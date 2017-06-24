@@ -1,0 +1,64 @@
+.adminContain.ng-scope {
+    padding: 13px;
+}
+.adminContain.ng-scope h1 {
+    font-size: 3em;
+}
+.adminContain.ng-scope p {
+    font-size: 14px;
+    line-height: 32px;
+  }
+
+
+  .moderate {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 3em;
+      flex-direction: column
+  }
+
+.repThreadInfo {
+  border: solid 2px var(--pink);
+  border-radius: 11px;
+  padding: 3px;
+  margin-bottom: 9px;
+
+
+}
+
+  .repThreadInfo h3 {
+      font-size: 2em;
+  }
+
+  span.administrate {
+    font-size: 12px;
+    color: grey;
+}
+
+p.adminComment.ng-binding {
+    padding: 2px;
+    border: solid var(--pink) 2px;
+    border-radius: 7px;
+    margin-bottom: 5px;
+}
+
+button.delete {
+    background-color: var(--red);
+    border: 0;
+    color: white;
+    padding: 7px;
+    margin-right: 2%;
+}
+
+button.dismiss {
+    padding: 7px;
+    border: 0;
+}
+
+
+  @media only screen and (min-width: 600px) {
+      .moderate {
+        flex-direction: column;
+      }
+
+  }

@@ -82,12 +82,18 @@ angular.module('app', ['ui.router'])
 
 // example from dallin
           .state('admin', {
-             templateUrl: 'views/adminView.html',
+             templateUrl: './app/views/forum/admin.html',
              url: '/admin',
-               controller: 'mainCtrl',
+               controller: 'adminController',
                resolve: {
                  user: (authService, $state) => {
                      return authService.getCurrentUser().then((response) => {
+                       //console.log(response.data.user[2])
+                        if (response.data.user[2] === 0) {
+                          window.alert("You are not an admin.")
+                          $state.go('forum')
+                        }
+
                          if(!response.data) {
                              window.location = "http://localhost:3000/auth"
                          } return response.data

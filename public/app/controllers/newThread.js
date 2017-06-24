@@ -32,13 +32,9 @@ angular.module('app').controller('newPostCtrl', function(postService, $state, th
              $window.location = "http://localhost:3000/auth"
              defer.reject()
          } else {
+           console.log(response.data.user[0].username)
+           $scope.display_name = response.data.user[0].username
 
-           $scope.display_name = response.data.user[1]
-          //  $http({
-          //    method: "PUT",
-          //    url
-           //
-          //  })
          }
      })
 

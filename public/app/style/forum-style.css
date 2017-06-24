@@ -216,7 +216,7 @@ animation:rainbow 1s infinite;
 /* in thread */
 
 .ThreadInfo {
-    margin: 20px 0 20px;
+    margin: 20px 0 14px;
     background: #efefef;
     padding: 7px;
     border-radius: 4px;
@@ -228,7 +228,7 @@ animation:rainbow 1s infinite;
 
 .ThreadInfo h1 {
     font-size: 2em;
-    padding-bottom: 9px;
+    padding-bottom: 2px;
 }
 
 .ThreadInfo p {
@@ -237,7 +237,13 @@ animation:rainbow 1s infinite;
 }
 
 .threadText {
-    margin-top: 18px;
+    margin-top: 7px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c19b9b;
+    border-radius: 5px;
+    padding: 5px;
+    background: rgb(251, 251, 251);
 }
 
 .selectedCommentOrder {
@@ -290,7 +296,7 @@ ul.flat-list.buttons {
         max-width:   75%;
     }
     .inTheThread.ng-scope {
-    max-width: 70%;
+
 }
     .searchThreads {
         max-width:   75%;

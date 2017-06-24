@@ -1,0 +1,103 @@
+.inTheThread {
+  background: url("../app/images/space-bg.png");
+
+}
+
+.threadTopper {
+  background: rgba(255, 255, 255, 0.88);
+  margin-top: 80px;
+  padding: 13px;
+  border-radius: 12px;
+
+}
+
+.backForum {
+
+}
+
+button.reportThread {
+    font-size: 8px;
+    border: 0;
+    color: red;
+}
+
+button.reportThread:hover {
+    cursor: alias;
+    background: black;
+}
+
+.comment_content {
+    font-size: 15px;
+    padding: 6px 0;
+}
+
+.comment_author {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple);
+}
+
+.top-level-comment.ng-scope {
+    padding: 8px 0;
+}
+
+.flat-list a {
+    padding: 0 8px 0 0;
+    font-weight: 700;
+}
+
+time.ng-binding {
+    font-size: 11px;
+    color: rgba(150, 150, 150, 0.89);
+}
+
+.ThreadInfo p {
+    color: grey;
+}
+
+.threadText p {
+    color: black;
+    font-size: 14px;
+}
+
+span.threadmaker.ng-binding {
+    color: var(--purple);
+}
+
+.commentArea {
+  margin-top: 20px;
+  background: white;
+  padding: 13px;
+  border-radius: 14px;
+}
+
+pre.ng-binding {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+textarea.replybox {
+    margin-top: 14px;
+}
+
+@media only screen and (min-width: 600px) {
+  .inTheThread.ng-scope {
+      padding: 8px;
+      padding-left: 20px;
+  }
+
+  .threadTopper {
+    max-width: 75%;
+}
+
+.commentArea {
+  max-width: 75%;
+  background: white;
+  padding: 13px;
+  border-radius: 14px;
+}
+}

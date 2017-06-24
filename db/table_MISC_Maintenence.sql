@@ -6,7 +6,8 @@ create table threads
  author_display text,
  thread_title text,
  thread_content text,
- created_at text
+ created_at text,
+ reported int
 )
 
 
@@ -20,4 +21,5 @@ create table comments
  parent_comment integer,
  author_display text,
  comment_content text,
- created_at text)
+ created_at text,
+ reported int)

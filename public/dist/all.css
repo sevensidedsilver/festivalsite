@@ -83,7 +83,8 @@ a#logolink {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  max-width: 100%; }
+  max-width: 100%;
+  color: #92D7FF; }
 
 .menuItem {
   height: 100%;
@@ -238,6 +239,65 @@ a#logolink {
     -webkit-transition: 1s;
     transition: 1s;
     margin-right: 15px; } }
+
+.adminContain.ng-scope {
+  padding: 13px; }
+
+.adminContain.ng-scope h1 {
+  font-size: 3em; }
+
+.adminContain.ng-scope p {
+  font-size: 14px;
+  line-height: 32px; }
+
+.moderate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  margin-top: 3em;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.repThreadInfo {
+  border: solid 2px var(--pink);
+  border-radius: 11px;
+  padding: 3px;
+  margin-bottom: 9px; }
+
+.repThreadInfo h3 {
+  font-size: 2em; }
+
+span.administrate {
+  font-size: 12px;
+  color: grey; }
+
+p.adminComment.ng-binding {
+  padding: 2px;
+  border: solid var(--pink) 2px;
+  border-radius: 7px;
+  margin-bottom: 5px; }
+
+button.delete {
+  background-color: var(--red);
+  border: 0;
+  color: white;
+  padding: 7px;
+  margin-right: 2%; }
+
+button.dismiss {
+  padding: 7px;
+  border: 0; }
+
+@media only screen and (min-width: 600px) {
+  .moderate {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; } }
 
 button.flatRainbow {
   width: 30%;
@@ -424,7 +484,7 @@ button.submitPostButton:hover {
 /* up in the thread up up up up up ================= */
 /* in thread */
 .ThreadInfo {
-  margin: 20px 0 20px;
+  margin: 20px 0 14px;
   background: #efefef;
   padding: 7px;
   border-radius: 4px; }
@@ -434,13 +494,19 @@ button.submitPostButton:hover {
 
 .ThreadInfo h1 {
   font-size: 2em;
-  padding-bottom: 9px; }
+  padding-bottom: 2px; }
 
 .ThreadInfo p {
   font-size: 12px; }
 
 .threadText {
-  margin-top: 18px; }
+  margin-top: 7px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c19b9b;
+  border-radius: 5px;
+  padding: 5px;
+  background: #fbfbfb; }
 
 .selectedCommentOrder {
   display: -webkit-box;
@@ -493,8 +559,6 @@ ul.flat-list.buttons {
 @media only screen and (min-width: 600px) {
   .threadsContainer {
     max-width: 75%; }
-  .inTheThread.ng-scope {
-    max-width: 70%; }
   .searchThreads {
     max-width: 75%; } }
 
@@ -559,7 +623,8 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+  text-decoration: none; }
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -586,12 +651,84 @@ table {
 
 /* end of reset! */
 body {
-  color: red;
   font: normal x-small verdana,arial,helvetica,sans-serif; }
 
 h2 {
   font-size: 2em; }
 
+.inTheThread {
+  background: url("../app/images/space-bg.png"); }
+
+.threadTopper {
+  background: rgba(255, 255, 255, 0.88);
+  margin-top: 80px;
+  padding: 13px;
+  border-radius: 12px; }
+
+button.reportThread {
+  font-size: 8px;
+  border: 0;
+  color: red; }
+
+button.reportThread:hover {
+  cursor: alias;
+  background: black; }
+
+.comment_content {
+  font-size: 15px;
+  padding: 6px 0; }
+
+.comment_author {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--purple); }
+
+.top-level-comment.ng-scope {
+  padding: 8px 0; }
+
+.flat-list a {
+  padding: 0 8px 0 0;
+  font-weight: 700; }
+
+time.ng-binding {
+  font-size: 11px;
+  color: rgba(150, 150, 150, 0.89); }
+
+.ThreadInfo p {
+  color: grey; }
+
+.threadText p {
+  color: black;
+  font-size: 14px; }
+
+span.threadmaker.ng-binding {
+  color: var(--purple); }
+
+.commentArea {
+  margin-top: 20px;
+  background: white;
+  padding: 13px;
+  border-radius: 14px; }
+
+pre.ng-binding {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word; }
+
+textarea.replybox {
+  margin-top: 14px; }
+
 @media only screen and (min-width: 600px) {
-  body {
-    color: lightblue; } }
+  .inTheThread.ng-scope {
+    padding: 8px;
+    padding-left: 20px; }
+  .threadTopper {
+    max-width: 75%; }
+  .commentArea {
+    max-width: 75%;
+    background: white;
+    padding: 13px;
+    border-radius: 14px; } }
