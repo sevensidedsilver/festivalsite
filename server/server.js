@@ -66,7 +66,7 @@ passport.use(new Auth0Strategy({
   callbackURL: 'http://localhost:3000' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
-
+  // console.log(profile)
 
   let user = [
     profile.id,
