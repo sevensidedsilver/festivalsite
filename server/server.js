@@ -14,6 +14,7 @@ const moment = require('moment');
 
 
 var forumController = require('./controllers/forumControllers.js')
+var threadController = require('./controllers/threadController.js')
 
 
 // INITIATE EXPRESS APP & SET LISTENING PORT ================
@@ -68,6 +69,8 @@ passport.use(new Auth0Strategy({
 
   // console.log(profile)
 
+  // these are the specific properties we pull from the profile object
+  // sent to us by auth0's server
   let user = [
     profile.id,
     profile.displayName,
@@ -79,6 +82,7 @@ passport.use(new Auth0Strategy({
 
   // looks for existing id
   app.get('db').ifUserExists([user[0]]).then(function(resp){
+
 
     if (resp.length < 1) {
       app.get('db').create_user(user).then(function(resp){
@@ -204,7 +208,10 @@ app.put('/dismissthread/:id', forumController.dismissthread)
 
 
 // GET ALL TOP LEVEL COMMENTS FOR A THREAD ==============get comments!
-app.get('/gettoplevelcomments/:id' , forumController.gettoplevelcomments)
+app.get('/gettoplevelcomments/:id' , threadController.gettoplevelcomments)
+
+// GET all children comments for specific comment id
+app.get('/getchildcomments/:id', threadController.getChildComments)
 
 // LISTENING ON PORT ===============================
 app.listen(port, () => {

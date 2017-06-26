@@ -51,7 +51,7 @@ module.exports = {
   //create new comment
   new_comment : function(req, res) {
     let thread_id = req.body.thread_id
-    let parent_comment = 0
+    let parent_comment = req.body.parent_comment
     let author_display = req.body.author_display
     let comment_content = req.body.comment_content
     let created_at = new Date()
@@ -71,6 +71,16 @@ module.exports = {
 
     },
 
+    // get all child comments for a specific comment id
+    getChildComments: function(req, res){
+      let comment_id = req.params.id
+      req.app.get('db').getChildComments([comment_id]).then(function(resp){
+        res.status(200).send(resp)
+      })
+
+
+
+    },
 // report a comment
   reportcomment: function(req, res){
     let comment_id = Number(req.params.id)
