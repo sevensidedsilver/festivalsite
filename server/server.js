@@ -208,10 +208,10 @@ app.put('/dismissthread/:id', forumController.dismissthread)
 
 
 // GET ALL TOP LEVEL COMMENTS FOR A THREAD ==============get comments!
-app.get('/gettoplevelcomments/:id' , threadController.gettoplevelcomments)
+app.get('/getallcomments/:id' , threadController.getallcomments)
 
 // GET all children comments for specific comment id
-app.get('/getchildcomments/:id', threadController.getChildComments)
+app.get('/getchildcomments/:id', forumController.getChildComments)
 
 // LISTENING ON PORT ===============================
 app.listen(port, () => {

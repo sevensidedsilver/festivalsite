@@ -17,16 +17,16 @@ module.exports= {
 
 
     // pulls ALL top level comments for a thread
-    gettoplevelcomments: function(req, res){
+    getallcomments: function(req, res){
       let thread_id = req.params.id
       //console.log(req)
-      req.app.get('db').gettoplevelcomments([thread_id]).then(function(resp){
+      req.app.get('db').getallcomments([thread_id]).then(function(resp){
         res.status(200).send(resp)
         let topLevelComments = resp;
-        // console.log(topLevelComments)
+         console.log(topLevelComments)
 
         topLevelComments.forEach(function(el){
-          el.children = forumController.getChildComments()
+          //el.children = forumController.getChildComments(el.comment_id)
 
 
 

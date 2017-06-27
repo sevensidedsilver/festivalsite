@@ -73,9 +73,11 @@ module.exports = {
 
     // get all child comments for a specific comment id
     getChildComments: function(req, res){
-      let comment_id = req.params.id
+      console.log(req)
+      let comment_id = req.comment_id
       req.app.get('db').getChildComments([comment_id]).then(function(resp){
         res.status(200).send(resp)
+        console.log(resp)
       })
 
 
