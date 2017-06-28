@@ -67,10 +67,11 @@ passport.use(new Auth0Strategy({
   callbackURL: 'http://localhost:3000' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
-  // console.log(profile)
+  //console.log(profile)
 
   // these are the specific properties we pull from the profile object
   // sent to us by auth0's server
+
   let user = [
     profile.id,
     profile.displayName,
@@ -95,6 +96,7 @@ passport.use(new Auth0Strategy({
 
       let user = resp
       return done(null, user);
+
     }
 
 
@@ -133,6 +135,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(obj, done) {
+  //console.log(obj)
   done(null, obj);
 });
 
