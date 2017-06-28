@@ -11,6 +11,9 @@
 
 }
 
+.threadDiv {
+    min-height: 100vh;
+}
 .backForum {
 
 }
@@ -19,12 +22,25 @@ button.reportThread {
     font-size: 8px;
     border: 0;
     color: red;
+    cursor: pointer;
 }
 
 button.reportThread:hover {
     cursor: alias;
     background: black;
 }
+
+comments.ng-scope {
+    display: block;
+    padding-top: 11px;
+}
+
+comments comments {
+    padding: 5px 4px 4px 10px;
+    background: rgba(0, 11, 107, 0.16);
+    }
+
+
 
 .comment_content {
     font-size: 15px;
@@ -37,9 +53,12 @@ button.reportThread:hover {
     font-weight: 700;
     color: var(--purple);
 }
-
+.top-level-comment {
+      margin-bottom: 6px;
+}
 .top-level-comment.ng-scope {
     padding: 8px 0;
+
 }
 
 .flat-list a {
@@ -80,10 +99,63 @@ pre.ng-binding {
     word-wrap: break-word;
 }
 
-textarea.replybox {
-    margin-top: 14px;
+
+
+.replyAction {
+    margin-top: 1em;
 }
 
+.replyActions {
+    margin-top: 1em;
+}
+
+button.postReply {
+    border: 0;
+    padding: 7px 15px;
+    cursor: url("../app/images/cursor.png"), auto;
+
+}
+
+button.postReply {
+    border: 0;
+    padding: 7px 15px;
+    cursor: url("../app/images/cursor.png"), auto;
+
+}
+
+li.reply-button {
+    padding: 3px;
+    background: var(--blue);
+    border-radius: 5px;
+    cursor: url("../app/images/cursor.png"), auto;
+
+}
+
+li.report-button {
+    padding: 3px;
+    cursor: alias;
+}
+
+button.postReply:hover {
+
+      -webkit-animation:rainbow 1s infinite;
+      -ms-animation:rainbow 1s infinite;
+      -o-animation:rainbow 1s infinite;
+      animation:rainbow 1s infinite;
+      background: black;
+
+}
+button.cancelReply {
+    border: 0;
+    margin-left: 8px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+button.cancelReply:hover {
+    color: black;
+    background: white;
+}
 @media only screen and (min-width: 600px) {
   .inTheThread.ng-scope {
       padding: 8px;

@@ -7,6 +7,17 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
         url: '/',
         templateUrl: "./app/views/home/home.html"
 
+    }).state('prepare', {
+        url: '/prepare',
+        templateUrl: "./app/views/prepare.html"
+    }).state('principles', {
+        url: '/principles',
+        templateUrl: "./app/views/principles.html",
+        controller: "principles",
+        service: "principles"
+    }).state('fire', {
+        url: '/fire',
+        templateUrl: "./app/views/fire.html"
     }
 
     // login state
@@ -269,14 +280,8 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
 
     threadService.getTopLevelComments(data).then(function (resp) {
 
-      resp.data.forEach(function (el) {
-
-        el.timeAgo = moment(el.created_at, "YYYYMMDD, h:mm:ss").fromNow();
-      });
-
-      $scope.topLevelComments = resp.data;
-
-      //  console.log($scope.topLevelComments)
+      $scope.comments = resp.data;
+      //console.log(resp.data)
     });
   };
 
@@ -308,7 +313,7 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
   // '/'/'/'/'/'/'/'/'/'/'/'/
   // submit a new top level comment to a thread
   );$scope.addComment = function () {
-    console.log("fire");
+    //console.log("fire")
     var data = {
       thread_id: $scope.thread.thread_id,
       parent_comment: 0,
@@ -338,8 +343,69 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
     });
   };
 
+  // hide a comment thread =========================================== HIDE
+  $scope.togglecomment = function (comment_id) {
+    console.log("hide it!", comment_id);
+  };
+
+  // post a reply comment
+  //show the reply action area
+  $scope.replyComment = function (comment) {
+    comment.showCommentReplyTextBox = true;
+  };
+
+  // post the reply
+  $scope.addChildComment = function (comment) {
+    var data = {
+      thread_id: $scope.thread.thread_id,
+      parent_comment: comment.comment_id,
+      author_display: $scope.display_name,
+      comment_content: comment.child_comment_content
+      // console.log("this is the parrent comment: " , comment)
+      // console.log("this is the child: " , data)
+
+    };threadService.createComment(data).then(function (resp) {
+      // after clicking the button, do this!
+      comment.child_comment_content = "";
+      //$scope.topLevelComments.push(data)
+    });
+  };
+
+  //cancel the reply
+  $scope.replyCommentCancel = function (comment) {
+    comment.showCommentReplyTextBox = false;
+  };
+
   // END OF MODULE ///////////////////////////////////////////////////////////////
 });
+'use strict';
+
+angular.module('app').directive('comments', function ($compile) {
+  return {
+    restrict: "E",
+    // scope: {
+    //   comment: "="
+    // },
+    templateUrl: "../app/directives/threadTemplate.html",
+    link: function link(scope, element, attrs) {
+      //check if this member has children
+      if (scope.comment.children.length > 0) {
+        // append the collection directive to this element
+        $compile('<comments comment="comment" ng-repeat="comment in comment.children"></comments>')(scope, function (cloned, scope) {
+          element.append(cloned);
+        });
+      }
+    }
+
+    // compile: function(element) {
+    //     // Use the compile function from the RecursionHelper,
+    //     // And return the linking function(s) which it returns
+    //     return recursionHelper.compile(element);
+    // }
+  };
+});
+
+// templateUrl: "../app/directives/threadTemplate.html"
 'use strict';
 
 angular.module('app').service('adminService', function ($http) {
@@ -463,6 +529,59 @@ angular.module('app').service('postService', function ($http) {
 });
 'use strict';
 
+angular.module('app').service('recursion', function ($http) {});
+'use strict';
+
+angular.module('app').factory('recursionHelper', ['$compile', function ($compile) {
+    // return {
+    //     childAction: function(){
+    //
+    //
+    //
+    //
+    //     }
+
+    // /**
+    //  * Manually compiles the element, fixing the recursion loop.
+    //  * @param element
+    //  * @param [link] A post-link function, or an object with function(s) registered via pre and post properties.
+    //  * @returns An object containing the linking functions.
+    //  */
+    return { compile: function compile(element, link) {
+            // Normalize the link parameter
+            if (angular.isFunction(link)) {
+                link = { post: link };
+            }
+
+            // Break the recursion loop by removing the contents
+            var contents = element.contents().remove();
+            var compiledContents;
+            return {
+                pre: link && link.pre ? link.pre : null,
+                /**
+                 * Compiles and re-adds the contents
+                 */
+                post: function post(scope, element) {
+                    // Compile the contents
+                    if (!compiledContents) {
+                        compiledContents = $compile(contents);
+                    }
+                    // Re-add the compiled contents to the element
+                    compiledContents(scope, function (clone) {
+                        element.append(clone);
+                    });
+
+                    // Call the post-linking function, if any
+                    if (link && link.post) {
+                        link.post.apply(null, arguments);
+                    }
+                }
+            };
+        }
+    };
+}]);
+'use strict';
+
 angular.module('app').service('homeSrv', function ($http) {
 
   this.openThreads = function () {
@@ -506,10 +625,10 @@ angular.module('app').service('threadService', function ($http) {
   this.getTopLevelComments = function (data) {
     return $http({
       method: "GET",
-      url: "/gettoplevelcomments/" + data
+      url: "/getallcomments/" + data
 
     }).then(function (resp) {
-
+      //console.log(resp)
       return resp;
     });
   };
@@ -536,5 +655,61 @@ angular.module('app').service('threadService', function ($http) {
       url: "/reportthread/" + data
     });
   };
+});
+'use strict';
+
+angular.module('app').controller('principles', function (adminService, $state, threadService, authService, $scope, $http, $window, $stateParams, principlesService) {
+
+  $scope.principles = principlesService.principles;
+
+  $scope.random = function () {
+    return 0.5 - Math.random();
+  };
+});
+'use strict';
+
+angular.module('app').service('principlesService', function ($http) {
+
+  this.principles = [{
+    title: "Radical Self Reliance",
+    text: "This event encourages you to discover and rely upon yourself. There's no food trucks or trash cans at the event!"
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Radical Inclusion",
+    text: "Anyone may be apart of Rhapsody. There are no prerequisites for participation - we welcome the stranger."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Gifting",
+    text: "We devote ourselves to act of giving. Gifts are unconditional. Gifts do not exchange or contemplate returns!"
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Decommodification",
+    text: "We discourage mediation of our environment by sponsorship, transactions, or advertising. Resist subsituting consumption for participation."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Radical Self Expression",
+    text: "This arises from the individual. Your expression is offered as a gift to others - respecting the rights/liberties of the recipient."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Communal Effort",
+    text: "We value collaboration! Everyone strives to create public and shared works of expression and communication."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Civic Responsibility",
+    text: "We value civility. Assume responsibility for anyone participating in something you've organized and act in accordance with the law."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Leave No Trace",
+    text: "Respect the environment. Clean up after yourselves and whenever possible, leave places in a better state than you found it in."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Radical Participation",
+    text: "Transformative change only comes through sincere personal participation. We believe in achieving through doing. Everone is invited to work and play."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }, {
+    title: "Immediacy",
+    text: "There's no moment like the present. Overcome the barriers that stand between you, me, and our good times together! Recognize your inner self by acting purely in the moment."
+    //  image: "../app/images/principles/sel-reliance.jpg"
+  }];
 });
 //# sourceMappingURL=all.js.map

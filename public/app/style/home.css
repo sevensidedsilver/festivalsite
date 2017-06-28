@@ -4,10 +4,12 @@
 .topSlideContain.ng-scope {
     background-image: url("../app/images/fire-hoop.jpg");
     background-size: cover;
-    height: 900px;
+    height: 100vh;
     display: flex;
     justify-content: center;
-
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
 
 }
 
@@ -15,12 +17,14 @@
     background: rgba(0, 0, 0, 0.84);
     padding-bottom: 5px;
     color: #b1e6d5;
+
 }
 
 .banner {
     font-size: 6em;
-    margin-top: 158px;
-  }
+    margin: 0 auto;
+    margin-top: -200px;
+}
 
 .banner h1 {
     display: inline;
@@ -28,26 +32,360 @@
     line-height: 84px;
 }
 
+.homeButtons {
+    margin: 0 auto;
+}
+
+.homeButtons button {
+    border: none;
+    font-size: 22px;
+    cursor: url(../app/images/cursor.png), auto;
+    height: 48px;
+    width: 45%;
+}
+
+button.tickets {
+    background: rgba(156, 150, 232, 0.93);
+    color: #dfe8e5;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+}
+button.tickets:hover {
+    background: var(--blue);
+    color: black;
+    letter-spacing: 3px;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+}
+button.homeForumButton{
+  -webkit-transition: .4s;
+  -o-transition: .4s;
+  transition: .4s;
+  background: rgba(146, 215, 255, 0.83);
+  color: white;
+}
+button.homeForumButton:hover {
+    background: black;
+    -webkit-animation:rainbow 1s infinite;
+    -ms-animation:rainbow 1s infinite;
+    -o-animation:rainbow 1s infinite;
+    animation:rainbow 1s infinite;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+    letter-spacing: 3px;
+}
+
+/*END OF BANNER ================------ SECION*/
+.whatEvenIs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+
+    background: rgba(156, 150, 232, 0.8);
+    padding-bottom: 60px;
+}
+
+.whatGreet {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 65px auto;
+    text-align: center;
+    line-height: 5em;
+}
+
+.whatGreet h2 {
+    font-size: 3em;
+    letter-spacing: 5px;
+}
+
+img#gonHome {
+    border-radius: 100%;
+    height: 200px;
+    width: 200px;
+    margin: 60px auto 20px;
+
+}
+.whatText {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    flex-direction: column;
+    margin: auto;
+    font-size: 11px;
+    line-height: 30px;
+}
+
+.half {
+    margin: 0 31px 0;
+    font-size: 1.2em;
+    line-height: 3em;
+}
+
+.lineUp {
+    background: url(../app/images/home/liveart.jpg) no-repeat center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
+
+
+
+.mainStage {
+
+    flex-direction: column;
+    font-size: 29px;
+    margin-bottom: 112px;
+    margin-left: 75px;
+    margin-right: 17px;
+    background: rgba(0, 255, 225, 0.87);
+    padding: 12px;
+    line-height: 1.5em;
+    letter-spacing: 3px;
+}
+
+
+.entertainment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 196px auto 159px;
+    max-width: 1200px;
+    padding-top: 308px;
+    margin-bottom: 293px;
+
+}
+
+.lineUpEx {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0;
+    text-align: center;
+}
+
+
+.lineUpExHead {
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+    font-size: 4em;
+    letter-spacing: 2px;
+    margin-bottom: 67px;
+}
+section.participation.ng-scope {
+    background: rgba(146, 215, 255, 0.6);
+
+    padding-bottom: 5vh;
+}
+
+.fireBall {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.fireBallPic {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.fireBallPic img {
+    max-width: 100%;
+}
+.fireBallText {
+    /* margin-left: 8%; */
+    line-height: 61px;
+    font-size: 1.4em;
+    margin: 0 auto;
+    padding: 4%;
+}
+
+
+/*ICON THIRDS SECTION */
+
+.iconHead {
+    font-size: 9em;
+}
+
+
+i.fa.fa-cutlery.fa-9 {
+    background: var(--purple);
+    padding: 35px;
+    border-radius: 100%;
+}
+
+i.fa.fa-heart.fa-9 {
+    background: var(--pink);
+    padding: 35px;
+    border-radius: 100%;
+}
+
+i.fa.fa-fire-extinguisher.fa-9 {
+    background: var(--orange);
+    padding: 35px;
+    border-radius: 100%;
+}
+
+.iconHead h3 {
+    font-size: 26px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.third {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    padding: 0 20px 0;
+    margin-bottom: 65px;
+    min-height: 323px;
+
+}
+.third p {
+  font-size: 1.2em;
+  max-width: 293px;
+  margin: 0 auto;
+}
+
+.third button {
+    width: 213px;
+    border: 0;
+    margin: 18px auto;
+    cursor: url(../app/images/cursor.png), auto;
+    padding: 11px 0;
+    transition: .4s;
+    min-height: 41px;
+}
+
+.third button:hover {
+    color: black;
+    transition: .4s;
+
+}
+
+.prepButton:hover {
+   background: var(--purple)
+}
+
+.cultureButton:hover {
+   background: var(--pink)
+}
+.fireButton:hover {
+   background: var(--orange)
+}
 
 @media only screen and (min-width: 600px) {
-  .topSlideContain.ng-scope {
-    background-image: url(../app/images/fire-hoop.jpg);
-    background-size: cover;
-    height: 900px;
-    background-position: center;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: flex-start;
+  .topSlideContain {
+      background: url(../app/images/fire-hoop.jpg) no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      background-position: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: flex-start;
 
 }
 
 .banner {
     font-size: 6em;
-    margin-top: 158px;
+    margin-top: 20vh;
     margin-left: 200px;
+}
+.whatText {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.lineUp {
+    background: url(../app/images/home/liveart.jpg) no-repeat center center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
+
+.mainStage {
+
+    flex-direction: column;
+    font-size: 29px;
+    margin-bottom: 123px;
+    margin-left: 226px;
+    background: rgba(0, 255, 225, 0.87);
+    padding: 12px;
+    line-height: 1.5em;
+    letter-spacing: 3px;
+}
+
+section.weaver.ng-scope {
+    margin-top: 20vh;
+}
+section.participation.ng-scope {
+    background: rgba(146, 215, 255, 0.6);
+    margin-top: 20vh;
+    padding-bottom: 5vh;
+}
+.fireBall {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.fireBallPic {
+    max-width: 500px;
+    margin: 0;
+}
+.fireBallText {
+    margin-left: 8%;
+    line-height: 61px;
+    font-size: 1.4em;
+    margin: 0;
+    padding-top: 0;
+    text-align: left;
+}
+
+.entertainment {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0px;
+    padding-top: 0;
+}
+.third {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    padding: 0 20px 0;
+    margin-bottom: 65px;
+    min-height: 213px;
+}
+
+.third button:hover {
+    color: black;
+    transition: .4s;
+
 }
 
 }

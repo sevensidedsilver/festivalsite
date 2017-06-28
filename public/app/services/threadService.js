@@ -15,10 +15,10 @@ this.postThread = function(data){
 this.getTopLevelComments = function(data){
   return $http({
     method:"GET",
-    url:"/gettoplevelcomments/" + data
+    url:"/getallcomments/" + data
 
   }).then(function(resp){
-
+    //console.log(resp)
     return resp
   })
 }

@@ -14,6 +14,23 @@ angular.module('app', ['ui.router'])
             templateUrl: "./app/views/home/home.html"
 
         })
+        .state('prepare', {
+          url: '/prepare',
+          templateUrl: "./app/views/prepare.html"
+        })
+
+        .state('principles', {
+          url: '/principles',
+          templateUrl: "./app/views/principles.html",
+          controller: "principles",
+          service: "principles"
+        })
+
+        .state('fire', {
+          url: '/fire',
+          templateUrl: "./app/views/fire.html"
+        })
+
 
 // login state
         .state('login', {

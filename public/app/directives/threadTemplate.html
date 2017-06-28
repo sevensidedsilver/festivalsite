@@ -1,0 +1,46 @@
+
+
+<div class="top-level-comment">
+    <p class="tagline"><a href="javascript:void(0)" class="expand" ng-click="togglecomment(comment.comment_id)">[–]</a>
+      <a href="#" class="comment_author">{{comment.author_display}}</a>
+      <time>{{comment.timeAgo}}</time>
+
+
+
+      <input type="hidden" name="thing_id" value="t1_dizi3im">
+      <div class="usertext-body may-blank-within md-container ">
+        <div class="comment_content">
+
+          <pre>{{comment.comment_content}}</pre>
+
+        </div>
+      </div>
+
+    <div class="replyButtons">
+      <ul class="flat-list buttons">
+        <li class="report-button" ng-click="reportComment(comment.comment_id)">
+          <a class="reportbtn access-required" data-event-action="report">report</a>
+        </li>
+        <li class="reply-button">
+          <a class="access-required" ng-click="replyComment(comment)" data-event-action="comment">reply</a>
+        </li></ul>
+    </div>
+
+  <!-- THIS is the div to hide/ show with the <r></r>eply button above   -->
+  <div class="replyAction" ng-show="comment.showCommentReplyTextBox">
+
+    <!-- HERE is the text area for adding a child comment -->
+      <textarea ng-class="replybox" ng-model="comment.child_comment_content" name="replybox" rows="4" cols="50" placeholder="type your reply"></textarea>
+
+      <div class="replyActions">
+        <button class= "postReply" ng-click = "addChildComment(comment)" type="button" name="button">Post!</button>
+        <button class= "cancelReply" ng-click = "replyCommentCancel(comment)" type="button" name="button">Cancel</button>
+      </div>
+  </div>
+
+<!-- end of ng-repeat -->
+
+
+
+
+  </div>

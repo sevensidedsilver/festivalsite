@@ -243,6 +243,7 @@ animation:rainbow 1s infinite;
     border-color: #c19b9b;
     border-radius: 5px;
     padding: 5px;
+    font-size: 14px;
     background: rgb(251, 251, 251);
 }
 

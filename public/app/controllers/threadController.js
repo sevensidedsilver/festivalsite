@@ -8,15 +8,9 @@ angular.module('app').controller('thread', function($scope, $state, threadServic
 
       threadService.getTopLevelComments(data).then(function(resp){
 
+        $scope.comments = resp.data
+        //console.log(resp.data)
 
-        resp.data.forEach(function(el){
-
-          el.timeAgo = (moment(el.created_at, "YYYYMMDD, h:mm:ss").fromNow())
-        })
-
-        $scope.topLevelComments = resp.data
-
-      //  console.log($scope.topLevelComments)
       })
 
   }
@@ -52,7 +46,7 @@ $http({
 // '/'/'/'/'/'/'/'/'/'/'/'/
 // submit a new top level comment to a thread
   $scope.addComment = function(){
-    console.log("fire")
+    //console.log("fire")
     var data = {
       thread_id: $scope.thread.thread_id,
       parent_comment: 0,
@@ -82,7 +76,42 @@ $scope.reportThread = function(thread_id){
     })
   }
 
+// hide a comment thread =========================================== HIDE
+  $scope.togglecomment = function(comment_id) {
+    console.log("hide it!", comment_id)
+  }
 
+
+
+
+// post a reply comment
+//show the reply action area
+  $scope.replyComment = function(comment){
+        comment.showCommentReplyTextBox = true;
+  }
+
+// post the reply
+  $scope.addChildComment = function(comment){
+    let data = {
+      thread_id: $scope.thread.thread_id,
+      parent_comment: comment.comment_id,
+      author_display: $scope.display_name,
+      comment_content: comment.child_comment_content
+    }
+    // console.log("this is the parrent comment: " , comment)
+    // console.log("this is the child: " , data)
+
+    threadService.createComment(data).then(function(resp){
+      // after clicking the button, do this!
+      comment.child_comment_content = "";
+      //$scope.topLevelComments.push(data)
+    })
+  }
+
+//cancel the reply
+  $scope.replyCommentCancel = function(comment){
+    comment.showCommentReplyTextBox = false;
+  }
 
 
 // END OF MODULE ///////////////////////////////////////////////////////////////

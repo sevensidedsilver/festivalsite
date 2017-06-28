@@ -39,9 +39,9 @@ module.exports= {
         })
 
 
-// just write a function ffs dude.
+// double for loop
       var commentize = function(allComments){
-        
+
         for (var i = 0; i < allComments.length; i++){
 
           // if the comment is a parent
