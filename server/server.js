@@ -15,6 +15,7 @@ const moment = require('moment');
 
 var forumController = require('./controllers/forumControllers.js')
 var threadController = require('./controllers/threadController.js')
+var notificationsController = require('./controllers/notificationsControllers.js')
 
 
 // INITIATE EXPRESS APP & SET LISTENING PORT ================
@@ -77,30 +78,20 @@ passport.use(new Auth0Strategy({
     profile.displayName,
     0
   ]
-
   //if user doesnt EXISTS, add to database
-
-
   // looks for existing id
   app.get('db').ifUserExists([user[0]]).then(function(resp){
-
-
     if (resp.length < 1) {
       app.get('db').create_user(user).then(function(resp){
-
-        let user = resp
+        //console.log(user)
         return done(null, user);
       })
-
     } else {
-
-      let user = resp
+      //console.log("now this" , user)
       return done(null, user);
-
     }
+    //return done(null, user);
 
-
-    console.log("already exists")
   })
 
 
@@ -131,11 +122,12 @@ app.get('/auth/callback',
 
 // create deserialize/ serializer methods on passport
 passport.serializeUser(function(user, done) {
+
   done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-  //console.log(obj)
+
   done(null, obj);
 });
 
@@ -181,6 +173,8 @@ app.get('/thread/:id', forumController.fetchoneThread)
 
 // create new thread ========================POST POST POST
 app.post('/newthread', forumController.new_thread)
+// mark new thread as unread for all users ======================== UNREAD THREAD
+app.put('/unreadthread', notificationsController.new_unread_for_all)
 
 
 // post new comment ========================== POST NEW comment

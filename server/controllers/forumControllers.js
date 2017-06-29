@@ -4,7 +4,6 @@ var app = require('../server.js')
 module.exports = {
   fetchUsers : function(req, res) {
     req.app.get('db').fetchUsers().then(function(resp){
-      //console.log("neat")
       res.status(200).send(resp)
     })
   },

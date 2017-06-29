@@ -1,5 +1,6 @@
 var app = require('../server.js')
 var forumController = require('./forumControllers.js')
+var notificationsController = require('./notificationsControllers.js')
 var moment = require('moment');
 
 module.exports= {
