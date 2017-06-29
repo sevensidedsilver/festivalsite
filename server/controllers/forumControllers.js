@@ -44,6 +44,7 @@ module.exports = {
     //console.log(created_at)
     req.app.get('db').new_Thread([thread_author, thread_title, thread_content, created_at]).then(function(resp){
       res.status(200).send(resp)
+      return resp
    })
  },
 

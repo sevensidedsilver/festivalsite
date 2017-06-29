@@ -7,7 +7,9 @@ new_unread_for_all: function(req, res){
   let new_unread;
   // first, find the most recent thread added to the threads column
   req.app.get('db').most_recent_thread_id().then(function(resp){
-    res.status(200).send(resp[0].max)
+
+    new_unread = resp[0].max
+    res.status(200).send(new_unread)
   })
 
   // next, get all the user data and prep the

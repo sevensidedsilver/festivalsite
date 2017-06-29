@@ -185,6 +185,18 @@ app.post('/newcomment', forumController.new_comment)
 app.put('/reportcomment/:id', forumController.reportcomment)
 
 
+// is current thread starred ====== STAR
+
+app.get('/isitstarred/:user_id/:thread_id', threadController.isItStarred)
+
+// toggle the fucking star ========== star
+
+app.put('/starthis/:user_id/:thread_id', threadController.starThis)
+
+
+
+
+
 // report a thread ================================report
 app.put('/reportthread/:id', forumController.reportthread)
 
