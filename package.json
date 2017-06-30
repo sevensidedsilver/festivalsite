@@ -2,7 +2,7 @@
   "name": "rhapsody",
   "version": "1.0.0",
   "description": "This website will be developed around the Angular JS framework.",
-  "main": "./public/app.js",
+  "main": "./server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js"
@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/sevensidedsilver/festivalsite#readme",
   "dependencies": {
-    "angular-auth0": "^2.0.0-beta.2",
     "angular-moment": "^1.0.1",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.17.2",
     "cors": "^2.8.3",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "gulp": "^3.9.1",

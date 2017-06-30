@@ -1,3 +1,4 @@
+require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const massive = require('massive');
@@ -5,8 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
-const config = require('../config.js');
-const LOCALconfig = require('../LOCALconfig.js');
+
 
 
 const moment = require('moment');
@@ -22,6 +22,9 @@ var notificationsController = require('./controllers/notificationsControllers.js
 const app = express();
 const port = 3000;
 
+// LISTENING ON PORT ===============================
+app.set('port', (process.env.PORT || 3000))
+
 // MIDDLEWARE FOR EVERYTHING TO PASS THROUGH ================
 app.use(cors());
 app.use(bodyParser.json());
@@ -31,7 +34,7 @@ app.use(express.static(`${__dirname}./../public`));
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: config.sessionSecret
+  secret: process.env.SESSIONSECRET
 }))
 
 //// MASSIVE DB ==========================================
@@ -43,12 +46,10 @@ app.use(session({
 // password: config.dbpass
 
 //connect to elepahnt sql
-massive(config.connection_string).then(db => {
+massive(process.env.CONNECTION_STRING).then(db => {
 	app.set('db', db);
-//
-// }).then(db => {
-// 	app.set('db', db);
-
+}).catch(error => {
+  console.log("some kinda massive error!")
 });
 
 // create tables if they don't exist ========================================
@@ -67,14 +68,14 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 passport.use(new Auth0Strategy({
-  domain: config.auth0.domain,
-  clientID: config.auth0.clientID,
-  clientSecret: config.auth0.clientSecret,
+  domain: process.env.DOMAIN,
+  clientID: process.env.CLIENTID,
+  clientSecret: process.env.CLIENTSECRET,
   //hosted:
-  // callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
+  // callbackURL: 'https://shrouded-brook-34453.herokuapp.com' + '/auth/callback'
 
   // local:
-  callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
+  callbackURL: '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
   //console.log(profile)
@@ -233,7 +234,7 @@ app.get('/getallcomments/:id' , threadController.getallcomments)
 // GET all children comments for specific comment id
 app.get('/getchildcomments/:id', forumController.getChildComments)
 
-// LISTENING ON PORT ===============================
-app.listen(port, () => {
-	console.log(`magic happens on port ${port}`)
+// listen app
+app.listen(app.get('port'), () => {
+  console.log("magic happens on port", app.get('port'))
 })

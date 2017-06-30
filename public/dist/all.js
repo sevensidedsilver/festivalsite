@@ -41,7 +41,7 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
                 }).then(function (response) {
 
                     if (!response.data.user) {
-                        $window.location = "http://localhost:3000/auth";
+                        $window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                         defer.reject();
                     } else {
                         defer.resolve(response.data);
@@ -57,10 +57,10 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
             user: function user(authService, $state) {
                 return authService.getCurrentUser().then(function (response) {
                     if (!response.data) {
-                        window.location = "http://localhost:3000/auth";
+                        window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                     }return response.data;
                 }).catch(function (err) {
-                    window.location = "http://localhost:3000/auth";
+                    window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                 });
             }
         }
@@ -76,10 +76,10 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
             user: function user(authService, $state) {
                 return authService.getCurrentUser().then(function (response) {
                     if (!response.data) {
-                        window.location = "http://localhost:3000/auth";
+                        window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                     }return response.data;
                 }).catch(function (err) {
-                    window.location = "http://localhost:3000/auth";
+                    window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                 });
             }
         }
@@ -100,10 +100,10 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
                     }
 
                     if (!response.data) {
-                        window.location = "http://localhost:3000/auth";
+                        window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                     }return response.data;
                 }).catch(function (err) {
-                    window.location = "http://localhost:3000/auth";
+                    window.location = "https://shrouded-brook-34453.herokuapp.com/#!/auth";
                 });
             }
         }
@@ -168,7 +168,7 @@ angular.module('app').controller('adminController', function (adminService, $sta
   }).then(function (response) {
 
     if (!response.data.user) {
-      $window.location = "http://localhost:3000/auth";
+      $window.location = "https://shrouded-brook-34453.herokuapp.com/auth";
       defer.reject();
     } else {
 
@@ -264,7 +264,7 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, t
   }).then(function (response) {
 
     if (response.data.user === false) {
-      $window.location = "http://localhost:3000/auth";
+      $window.location = "https://shrouded-brook-34453.herokuapp.com/auth";
       defer.reject();
     } else {
       //  console.log(response.data.user)
