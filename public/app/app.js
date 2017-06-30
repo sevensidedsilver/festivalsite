@@ -53,7 +53,7 @@ angular.module('app', ['ui.router'])
                 }).then((response) => {
 
                       if(!response.data.user) {
-                          $window.location = "http://localhost:3000/auth"
+                          $window.location = "http://rhapsodyfestival.com/#!/auth"
                           defer.reject()
                       } else {defer.resolve(response.data)}
                   })
@@ -69,10 +69,10 @@ angular.module('app', ['ui.router'])
               user: (authService, $state) => {
                   return authService.getCurrentUser().then((response) => {
                       if(!response.data) {
-                          window.location = "http://localhost:3000/auth"
+                          window.location = "http://rhapsodyfestival.com/#!/auth"
                       } return response.data
                   }).catch(err => {
-                      window.location = "http://localhost:3000/auth"
+                      window.location = "http://rhapsodyfestival.com/#!/auth"
                   })
               }
             }
@@ -88,10 +88,10 @@ angular.module('app', ['ui.router'])
                 user: (authService, $state) => {
                     return authService.getCurrentUser().then((response) => {
                         if(!response.data) {
-                            window.location = "http://localhost:3000/auth"
+                            window.location = "http://rhapsodyfestival.com/#!/auth"
                         } return response.data
                     }).catch(err => {
-                        window.location = "http://localhost:3000/auth"
+                        window.location = "http://rhapsodyfestival.com/#!/auth"
                     })
                 }
               }
@@ -112,10 +112,10 @@ angular.module('app', ['ui.router'])
                         }
 
                          if(!response.data) {
-                             window.location = "http://localhost:3000/auth"
+                             window.location = "http://rhapsodyfestival.com/#!/auth"
                          } return response.data
                      }).catch(err => {
-                         window.location = "http://localhost:3000/auth"
+                         window.location = "http://rhapsodyfestival.com/#!/auth"
                      })
                  }
                }

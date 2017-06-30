@@ -35,20 +35,20 @@ app.use(session({
 }))
 
 //// MASSIVE DB ==========================================
-massive({
-	host: "localhost",
-	port: 5432,
-	database: LOCALconfig.database
+// massive({
+	// host: "localhost",
+	// port: 5432,
+//	database: LOCALconfig.database
 // user: config.dbuser,
 // password: config.dbpass
 
-// connect to elepahnt sql
-// massive(config.connection_string).then(db => {
-// 	app.set('db', db);
-// });
-
-}).then(db => {
+//connect to elepahnt sql
+massive(config.connection_string).then(db => {
 	app.set('db', db);
+//
+// }).then(db => {
+// 	app.set('db', db);
+
 });
 
 // create tables if they don't exist ========================================
@@ -70,7 +70,11 @@ passport.use(new Auth0Strategy({
   domain: config.auth0.domain,
   clientID: config.auth0.clientID,
   clientSecret: config.auth0.clientSecret,
-  callbackURL: 'http://localhost:3000' + '/auth/callback'
+  //hosted:
+  // callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
+
+  // local:
+  callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
   //console.log(profile)

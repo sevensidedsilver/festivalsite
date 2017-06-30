@@ -33,7 +33,7 @@ angular.module('app').controller('newPostCtrl', function(postService, $state, th
    }).then((response) => {
 
          if(response.data.user === false) {
-             $window.location = "http://localhost:3000/auth"
+             $window.location = "http://rhapsodyfestival.com/auth"
              defer.reject()
          } else {
         //  console.log(response.data.user)

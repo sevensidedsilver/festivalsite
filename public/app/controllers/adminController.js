@@ -57,7 +57,7 @@ $scope.dismissThread = function(thread_id){
    }).then((response) => {
 
          if(!response.data.user) {
-             $window.location = "http://localhost:3000/auth"
+             $window.location = "http://rhapsodyfestival.com/auth"
              defer.reject()
          } else {
 
