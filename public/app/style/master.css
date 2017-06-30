@@ -91,6 +91,7 @@ a#logolink {
     max-width: 100%;
     color: #92D7FF;
 }
+
 .menuItem {
     height: 100%;
     align-items: center;
@@ -184,7 +185,7 @@ align-items: center;
 .footerbits {
     display: flex;
     flex-direction: column;
-    color: blue;
+    color: red;
 }
 
 .footerRow {

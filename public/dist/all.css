@@ -201,7 +201,8 @@ a#logolink {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
-  flex-direction: column; }
+  flex-direction: column;
+  color: red; }
 
 .footerRow {
   display: -webkit-box;
