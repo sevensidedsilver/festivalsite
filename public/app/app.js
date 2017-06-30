@@ -6,7 +6,6 @@ angular.module('app', ['ui.router'])
 
 
     .config(function($stateProvider, $urlRouterProvider){
-      //$urlRouterProvider.when("login", window.location = "http://localhost:3000/auth")
 
       $stateProvider
         .state('home', {
