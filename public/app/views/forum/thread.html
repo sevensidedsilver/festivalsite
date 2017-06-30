@@ -15,6 +15,13 @@
     <pre>{{thread.thread_content}}</pre>
   </div>
 </div>
+<div class="star" ng-click="starThis(user_id, thread.thread_id)" ng-if="!starred">
+  <i class="fa fa-star fa-6" aria-hidden="true"></i> <p>Star This Thread</p>
+</div>
+
+<div class="unstar" ng-click="unStarThis(user_id, thread.thread_id)" ng-if="starred">
+  <i class="fa fa-star fa-6" aria-hidden="true"></i> <p>Unstar This Thread</p>
+</div>
 
 <button ng-click="reportThread(thread.thread_id)" type="button" name="reportthread" class = "reportThread">Report Thread</button>
 

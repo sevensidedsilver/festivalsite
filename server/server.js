@@ -42,6 +42,11 @@ massive({
 // user: config.dbuser,
 // password: config.dbpass
 
+// connect to elepahnt sql
+// massive(config.connection_string).then(db => {
+// 	app.set('db', db);
+// });
+
 }).then(db => {
 	app.set('db', db);
 });
@@ -192,6 +197,8 @@ app.get('/isitstarred/:user_id/:thread_id', threadController.isItStarred)
 // toggle the fucking star ========== star
 
 app.put('/starthis/:user_id/:thread_id', threadController.starThis)
+//toggle the star off ======================= star
+app.put('/unstarthis/:user_id/:thread_id', threadController.unStarThis)
 
 
 

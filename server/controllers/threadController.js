@@ -13,24 +13,42 @@ module.exports= {
     })
   },
 
+
+
+
 //////   is the current thread starred? ====== star
 isItStarred: function(req, res){
   let user_id = req.params.user_id
   let thread_id = req.params.thread_id
-  //console.log(req.params)
+  // console.log(req.params)
   req.app.get('db').isItStarred([user_id]).then(function(resp){
+    // console.log(resp[0].starred_threads)
+    //there's no starred_threads
     if (resp[0].starred_threads === null) {
-      res.status(200).send(false)
-    } else if (resp[0].starred_threads.length < 2){
-      res.status(200).send(false)
-    } else {
-      let starred_threads = resp[0].starred_threads.split(', ')
-      if (starred_threads.indexOf(thread_id) !== -1) {
-        res.status(200).send(true)
-      }
+      res.status(200).send(false) }
+    // } else if (resp[0].starred_threads.length < 2){
+    //   res.status(200).send(false)
+    // }
+      else {
+        let starred_threads = resp[0].starred_threads.split(', ')
+        // console.log(starred_threads)
+        if (starred_threads.indexOf(thread_id.toString()) !== -1) {
+          res.status(200).send(true)
+        } else if (starred_threads.indexOf(thread_id.toString()) === -1){
+          res.status(200).send(false)
+        }
     }
   })
 },
+
+
+
+
+
+
+
+
+
 
 // toggle the fucking star on
 starThis: function(req, res){
@@ -38,21 +56,55 @@ starThis: function(req, res){
   let thread_id = req.params.thread_id
   req.app.get('db').isItStarred([user_id]).then(function(resp){
     let starred_threads = resp[0].starred_threads
+    // if there's no starred threads
     if (starred_threads === null) {
       req.app.get('db').newStar([thread_id, user_id]).then(function(resp){
         res.status(200).send(true)
       })
     } else if (starred_threads.indexOf(',') === -1) {
-      // console.log('there is only one liked thread')
+      // console.log('there is only one starred thread')
       starred_threads = starred_threads.concat(", " + thread_id)
+      req.app.get('db').newStar([starred_threads, user_id]).then(function(resp){
+        res.status(200).send(true)
+      })
+    } else {
+      // there must be multiple threads starred
+      starred_threads = resp[0].starred_threads.split(', ')
+      starred_threads.push(thread_id.toString())
+      starred_threads = (starred_threads.join(", "))
       req.app.get('db').newStar([starred_threads, user_id]).then(function(resp){
         res.status(200).send(true)
       })
     }
   })
-
 },
+  // toggle the star off
+  unStarThis: function(req, res){
+    let user_id = req.params.user_id
+    let thread_id = req.params.thread_id
+    req.app.get('db').isItStarred([user_id]).then(function(resp){
+      let starred_threads = (resp[0].starred_threads)
+      // one starred thread
+      if (starred_threads.indexOf(',') === -1) {
+        req.app.get('db').newStar([null, user_id]).then(function(resp){
+          res.status(200).send(false)
+        })
+      } else if (starred_threads.split(', ').length >= 2) {
+        //2 or more starred threads
+        starred_threads = starred_threads.split(', ')
+        //console.log(starred_threads)
+        //remove the star
+        starred_threads.splice(starred_threads.indexOf(thread_id.toString()), 1)
+        starred_threads = starred_threads.join(', ')
+        //console.log(starred_threads)
+        req.app.get('db').newStar([starred_threads, user_id]).then(function(resp){
+          res.status(200).send(false)
+        })
+      }
 
+
+    })
+  },
 
 
 

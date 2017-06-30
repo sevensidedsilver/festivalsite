@@ -1,5 +1,21 @@
 angular.module('app').controller('thread', function($scope, $state, threadService, $http, $window, $stateParams, homeSrv){
 
+  // get the display_name from the session object
+  $http({
+     method: "GET",
+     url: '/auth/me'
+   }).then((response) => {
+
+         if(!response.data.user) {
+             $window.location = "http://localhost:3000/auth"
+             defer.reject()
+         } else {
+           //console.log(response.data.user)
+           $scope.display_name = response.data.user[1];
+           $scope.user_id = response.data.user[0]
+
+         }
+     })
 
   // display all the top level comments for a thread
     $scope.getcomments = function(){
@@ -10,6 +26,7 @@ angular.module('app').controller('thread', function($scope, $state, threadServic
 
         $scope.comments = resp.data
         //console.log(resp.data)
+
 
       })
 
@@ -23,24 +40,50 @@ angular.module('app').controller('thread', function($scope, $state, threadServic
 
     $scope.thread.timeAgo = (moment($scope.thread.created_at, "YYYYMMDD, h:mm:ss").fromNow())
     $scope.getcomments()
+
+
+    $scope.isItStarred($scope.user_id, $scope.thread.thread_id)
+
   })
   // console.log($stateParams.thread_id)
 
-// get the display_name from the session object
-$http({
-   method: "GET",
-   url: '/auth/me'
- }).then((response) => {
 
-       if(!response.data.user) {
-           $window.location = "http://localhost:3000/auth"
-           defer.reject()
-       } else {
 
-         $scope.display_name = response.data.user[0].username
 
-       }
-   })
+
+// thread is starred or NOT star
+$scope.isItStarred = function(user_id, thread_id){
+   threadService.isItStarred(user_id, thread_id).then(function(resp){
+    $scope.starred = resp
+  })
+}
+
+// toggle star on
+$scope.starThis = function(user_id, thread_id){
+  // console.log("controller sending" , user_id, thread_id)
+
+  threadService.starThis(user_id, thread_id).then(function(resp){
+    $scope.starred = resp
+  })
+}
+
+// toggle star off
+$scope.unStarThis = function(user_id, thread_id){
+  // console.log("controller sending", user_id, thread_id)
+
+  threadService.unStarThis(user_id, thread_id).then(function(resp){
+    console.log(resp)
+    $scope.starred = resp
+  })
+}
+
+
+
+
+
+
+
+
 
 
 // '/'/'/'/'/'/'/'/'/'/'/'/
@@ -53,12 +96,15 @@ $http({
       author_display: $scope.display_name,
       comment_content: $scope.comment_content
     }
+    if (data.comment_content.length >= 5) {
+      threadService.createComment(data).then(function(resp){
+        // after clicking the button, do this!
+        $scope.comment_content = "";
+        //$scope.comments.push(data)
+        $scope.getcomments()
+      })
+    } else {alert("comments must have at least 5 characters!")}
 
-    threadService.createComment(data).then(function(resp){
-      // after clicking the button, do this!
-      $scope.comment_content = "";
-      $scope.topLevelComments.push(data)
-    })
   }
 
 // report thread =====================================
@@ -78,7 +124,7 @@ $scope.reportThread = function(thread_id){
 
 // hide a comment thread =========================================== HIDE
   $scope.togglecomment = function(comment_id) {
-    console.log("hide it!", comment_id)
+
   }
 
 
@@ -98,14 +144,16 @@ $scope.reportThread = function(thread_id){
       author_display: $scope.display_name,
       comment_content: comment.child_comment_content
     }
-    // console.log("this is the parrent comment: " , comment)
-    // console.log("this is the child: " , data)
+    if (data.comment_content.length >= 3){
+      threadService.createComment(data).then(function(resp){
+        // after clicking the button, do this!
+        comment.child_comment_content = "";
+        $scope.getcomments()
+      })
 
-    threadService.createComment(data).then(function(resp){
-      // after clicking the button, do this!
-      comment.child_comment_content = "";
-      //$scope.topLevelComments.push(data)
-    })
+    } else (alert("replies to comments need at least 3 characters!"))
+
+
   }
 
 //cancel the reply

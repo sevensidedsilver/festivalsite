@@ -21,6 +21,16 @@ button.flatRainbow:hover {
 }
 
 
+
+
+.updates {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 9px;
+  padding: 5px;
+  border-color: rgb(234, 216, 216);
+}
+
 .threadOuter {
     display: flex;
     justify-content: space-around;
@@ -40,28 +50,6 @@ button.flatRainbow:hover {
   border-radius: 9px;
   padding: 5px;
   border-color: rgb(234, 216, 216);
-
-}
-
-
-.threadTitle h3 {
-    font-size: 23px;
-    transition: .5s;
-    color: black;
-}
-.threadTitle h3:hover {
-    cursor: pointer;
-    transition: .5s;
-    letter-spacing: .2px;
-    color: grey;
-}
-
-.threadItem {
-    margin: 9px 0 9px;
-}
-
-.thread {
-    padding: 4px;
 
 }
 
@@ -93,6 +81,32 @@ animation:rainbow 1s infinite;
     /* float: left; */
     width: 100%;
 }
+
+.threadTitle h3 {
+    font-size: 23px;
+    transition: .5s;
+    color: black;
+}
+.threadTitle h3:hover {
+    cursor: pointer;
+    transition: .5s;
+    letter-spacing: .2px;
+    color: grey;
+}
+
+.threadItem {
+    margin: 9px 0 9px;
+    display: flex;
+    flex-direction: row;
+}
+
+.thread {
+    padding: 4px;
+}
+
+
+
+
 
 
 /* new post page */

@@ -239,22 +239,47 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, t
   //create post on button click and push to database
 
   $scope.postNewThread = function () {
+    // threadService.unReadThread()
     var data = {
       thread_author: $scope.display_name,
       thread_title: $scope.postTitle,
       thread_content: $scope.postText
-      //new Date(year, month, day, hours, minutes, seconds)
-
-      //  console.log(data.created_at)
-    };threadService.postThread(data).then(function (resp) {
-      // whatever you want to do after the posting goes here!
-      $scope.postTitle = "";
-      $scope.postText = "";
-      $state.go('forum');
-    });
+    };
+    if (data.thread_title.length >= 5) {
+      threadService.postThread(data).then(function (resp) {
+        // whatever you want to do after the posting goes here!
+        $scope.postTitle = "";
+        $scope.postText = "";
+        $state.go('forum');
+      });
+    } else {
+      alert("Post titles must contain at least 5 characters!");
+    }
   };
 
   //this gets the session and pulls the displayName from it
+  $http({
+    method: "GET",
+    url: '/auth/me'
+  }).then(function (response) {
+
+    if (response.data.user === false) {
+      $window.location = "http://localhost:3000/auth";
+      defer.reject();
+    } else {
+      //  console.log(response.data.user)
+      $scope.display_name = response.data.user[1];
+
+      //  console.log(response.data.user[0].username)
+
+    }
+  });
+});
+'use strict';
+
+angular.module('app').controller('thread', function ($scope, $state, threadService, $http, $window, $stateParams, homeSrv) {
+
+  // get the display_name from the session object
   $http({
     method: "GET",
     url: '/auth/me'
@@ -264,17 +289,14 @@ angular.module('app').controller('newPostCtrl', function (postService, $state, t
       $window.location = "http://localhost:3000/auth";
       defer.reject();
     } else {
-      console.log(response.data.user[0].username);
-      $scope.display_name = response.data.user[0].username;
+      //console.log(response.data.user)
+      $scope.display_name = response.data.user[1];
+      $scope.user_id = response.data.user[0];
     }
-  });
-});
-'use strict';
-
-angular.module('app').controller('thread', function ($scope, $state, threadService, $http, $window, $stateParams, homeSrv) {
+  }
 
   // display all the top level comments for a thread
-  $scope.getcomments = function () {
+  );$scope.getcomments = function () {
     //  console.log($scope.thread.thread_id)
     var data = $scope.thread.thread_id;
 
@@ -282,6 +304,7 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
 
       $scope.comments = resp.data;
       //console.log(resp.data)
+
     });
   };
 
@@ -292,27 +315,41 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
 
     $scope.thread.timeAgo = moment($scope.thread.created_at, "YYYYMMDD, h:mm:ss").fromNow();
     $scope.getcomments();
+
+    $scope.isItStarred($scope.user_id, $scope.thread.thread_id);
   }
   // console.log($stateParams.thread_id)
 
-  // get the display_name from the session object
-  );$http({
-    method: "GET",
-    url: '/auth/me'
-  }).then(function (response) {
 
-    if (!response.data.user) {
-      $window.location = "http://localhost:3000/auth";
-      defer.reject();
-    } else {
+  // thread is starred or NOT star
+  );$scope.isItStarred = function (user_id, thread_id) {
+    threadService.isItStarred(user_id, thread_id).then(function (resp) {
+      $scope.starred = resp;
+    });
+  };
 
-      $scope.display_name = response.data.user[0].username;
-    }
-  }
+  // toggle star on
+  $scope.starThis = function (user_id, thread_id) {
+    // console.log("controller sending" , user_id, thread_id)
+
+    threadService.starThis(user_id, thread_id).then(function (resp) {
+      $scope.starred = resp;
+    });
+  };
+
+  // toggle star off
+  $scope.unStarThis = function (user_id, thread_id) {
+    // console.log("controller sending", user_id, thread_id)
+
+    threadService.unStarThis(user_id, thread_id).then(function (resp) {
+      console.log(resp);
+      $scope.starred = resp;
+    });
+  };
 
   // '/'/'/'/'/'/'/'/'/'/'/'/
   // submit a new top level comment to a thread
-  );$scope.addComment = function () {
+  $scope.addComment = function () {
     //console.log("fire")
     var data = {
       thread_id: $scope.thread.thread_id,
@@ -320,12 +357,16 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
       author_display: $scope.display_name,
       comment_content: $scope.comment_content
     };
-
-    threadService.createComment(data).then(function (resp) {
-      // after clicking the button, do this!
-      $scope.comment_content = "";
-      $scope.topLevelComments.push(data);
-    });
+    if (data.comment_content.length >= 5) {
+      threadService.createComment(data).then(function (resp) {
+        // after clicking the button, do this!
+        $scope.comment_content = "";
+        //$scope.comments.push(data)
+        $scope.getcomments();
+      });
+    } else {
+      alert("comments must have at least 5 characters!");
+    }
   };
 
   // report thread =====================================
@@ -344,9 +385,7 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
   };
 
   // hide a comment thread =========================================== HIDE
-  $scope.togglecomment = function (comment_id) {
-    console.log("hide it!", comment_id);
-  };
+  $scope.togglecomment = function (comment_id) {};
 
   // post a reply comment
   //show the reply action area
@@ -361,14 +400,14 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
       parent_comment: comment.comment_id,
       author_display: $scope.display_name,
       comment_content: comment.child_comment_content
-      // console.log("this is the parrent comment: " , comment)
-      // console.log("this is the child: " , data)
-
-    };threadService.createComment(data).then(function (resp) {
-      // after clicking the button, do this!
-      comment.child_comment_content = "";
-      //$scope.topLevelComments.push(data)
-    });
+    };
+    if (data.comment_content.length >= 3) {
+      threadService.createComment(data).then(function (resp) {
+        // after clicking the button, do this!
+        comment.child_comment_content = "";
+        $scope.getcomments();
+      });
+    } else alert("replies to comments need at least 3 characters!");
   };
 
   //cancel the reply
@@ -620,6 +659,14 @@ angular.module('app').service('threadService', function ($http) {
       data: data
     });
   },
+  // mark new thread as unread for all users
+  this.unReadThread = function (data) {
+    return $http({
+      method: "get",
+      url: "/unreadthread",
+      data: data
+    });
+  },
 
   // get top level comments for a threadService
   this.getTopLevelComments = function (data) {
@@ -630,6 +677,39 @@ angular.module('app').service('threadService', function ($http) {
     }).then(function (resp) {
       //console.log(resp)
       return resp;
+    });
+  },
+
+  /// is it starred?
+  // check using the user id and the thread id passed from the controller
+  this.isItStarred = function (user_id, thread_id) {
+    // console.log("we have the ", user_id, thread_id)
+    return $http({
+      method: "GET",
+      url: "/isitstarred/" + user_id + "/" + thread_id
+    }).then(function (resp) {
+      // console.log(resp.data)
+      return resp.data;
+    });
+  },
+  // toggle star on
+  this.starThis = function (user_id, thread_id) {
+    //console.log("we got here")
+    return $http({
+      method: "put",
+      url: "/starthis/" + user_id + "/" + thread_id
+    }).then(function (resp) {
+      return resp.data;
+    });
+  },
+  //toggle star off
+  this.unStarThis = function (user_id, thread_id) {
+    return $http({
+      method: "put",
+      url: "/unstarthis/" + user_id + "/" + thread_id
+    }).then(function (resp) {
+      // console.log(resp.data)
+      return resp.data;
     });
   };
 

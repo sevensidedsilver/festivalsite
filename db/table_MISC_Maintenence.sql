@@ -23,3 +23,19 @@ create table comments
  comment_content text,
  created_at text,
  reported int)
+
+-- create user table
+create table users
+  (id text,
+   username text,
+   admin int,
+   new_threads text,
+   starred_threads text
+  )
+
+
+
+-- notification abstraction
+select * from comments
+join threads on threads.thread_id = comments.thread_id
+where threads.author_display = 'Sean Ruffolo'

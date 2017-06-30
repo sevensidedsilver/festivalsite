@@ -410,6 +410,13 @@ button.flatRainbow:hover {
   -webkit-transition: .5s;
   transition: .5s; }
 
+.updates {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 9px;
+  padding: 5px;
+  border-color: #ead8d8; }
+
 .threadOuter {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -434,25 +441,6 @@ button.flatRainbow:hover {
   padding: 5px;
   border-color: #ead8d8; }
 
-.threadTitle h3 {
-  font-size: 23px;
-  -webkit-transition: .5s;
-  transition: .5s;
-  color: black; }
-
-.threadTitle h3:hover {
-  cursor: pointer;
-  -webkit-transition: .5s;
-  transition: .5s;
-  letter-spacing: .2px;
-  color: grey; }
-
-.threadItem {
-  margin: 9px 0 9px; }
-
-.thread {
-  padding: 4px; }
-
 button.add-post {
   width: 108px;
   padding: 9px 5px;
@@ -473,6 +461,32 @@ button.add-post:hover {
 .searchThreads {
   /* float: left; */
   width: 100%; }
+
+.threadTitle h3 {
+  font-size: 23px;
+  -webkit-transition: .5s;
+  transition: .5s;
+  color: black; }
+
+.threadTitle h3:hover {
+  cursor: pointer;
+  -webkit-transition: .5s;
+  transition: .5s;
+  letter-spacing: .2px;
+  color: grey; }
+
+.threadItem {
+  margin: 9px 0 9px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row; }
+
+.thread {
+  padding: 4px; }
 
 /* new post page */
 .submitPost {
@@ -1150,6 +1164,53 @@ h2 {
 .threadDiv {
   min-height: 100vh; }
 
+.star {
+  font-size: 35px;
+  color: #a8a67a;
+  padding-top: 4px;
+  padding-right: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  max-width: 155px;
+  margin-bottom: 16px;
+  cursor: url("../app/images/cursor.png"), auto; }
+
+.star p {
+  font-size: 12px;
+  display: inline; }
+
+.unstar i.fa.fa-star.fa-6 {
+  color: black; }
+
+.unstar {
+  font-size: 35px;
+  color: #a8a67a;
+  padding-top: 4px;
+  padding-right: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  max-width: 155px;
+  margin-bottom: 16px;
+  cursor: url("../app/images/cursor.png"), auto; }
+
+.unstar p {
+  font-size: 12px;
+  display: inline; }
+
 button.reportThread {
   font-size: 8px;
   border: 0;
@@ -1256,6 +1317,16 @@ button.cancelReply {
 button.cancelReply:hover {
   color: black;
   background: white; }
+
+/*limit digest limit comments depth*/
+comments comments comments comments comments comments comments comments comments comments li.reply-button {
+  display: none; }
+
+comments comments comments comments a.comment_author.ng-binding {
+  color: rgba(255, 255, 255, 0.75); }
+
+comments comments comments time.ng-binding {
+  color: #e7e7e7; }
 
 @media only screen and (min-width: 600px) {
   .inTheThread.ng-scope {
