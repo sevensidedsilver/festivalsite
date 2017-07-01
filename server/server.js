@@ -71,17 +71,11 @@ passport.use(new Auth0Strategy({
   domain: process.env.DOMAIN,
   clientID: process.env.CLIENTID,
   clientSecret: process.env.CLIENTSECRET,
-  //hosted:
-  // callbackURL: 'https://shrouded-brook-34453.herokuapp.com' + '/auth/callback'
+
 
   // local:
   callbackURL: '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
-
-  //console.log(profile)
-
-  // these are the specific properties we pull from the profile object
-  // sent to us by auth0's server
 
   let user = [
     profile.id,

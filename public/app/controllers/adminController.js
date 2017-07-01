@@ -57,7 +57,7 @@ $scope.dismissThread = function(thread_id){
    }).then((response) => {
 
          if(!response.data.user) {
-             $window.location = "https://shrouded-brook-34453.herokuapp.com/auth"
+             $window.location = "http://www.rhapsodyfestival.com/auth"
              defer.reject()
          } else {
 

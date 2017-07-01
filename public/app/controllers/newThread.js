@@ -33,7 +33,7 @@ angular.module('app').controller('newPostCtrl', function(postService, $state, th
    }).then((response) => {
 
          if(response.data.user === false) {
-             $window.location = "https://shrouded-brook-34453.herokuapp.com/auth"
+             $window.location = "http://www.rhapsodyfestival.com/auth"
              defer.reject()
          } else {
         //  console.log(response.data.user)
