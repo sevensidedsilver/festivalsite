@@ -34,7 +34,7 @@
       <input ng-model="query" type="text" name="search" placeholder="seach by title or author">
     </div>
 
-    <div class="threadslist" ng-repeat="thread in threads | orderBy: '-thread_id'">
+    <div class="threadslist" ng-repeat="thread in threads | orderBy: '-thread_id' | filter:query ">
 
 
 
