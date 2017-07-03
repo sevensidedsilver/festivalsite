@@ -136,6 +136,7 @@ angular.module('app').controller('adminController', function (adminService, $sta
     adminService.deleteComment(comment_id).then(function (resp) {
       return resp;
     });
+    $scope.getReportedComments();
   };
 
   // dismiss comment reported
@@ -144,6 +145,7 @@ angular.module('app').controller('adminController', function (adminService, $sta
     adminService.dismissComment(comment_id).then(function (resp) {
       return resp;
     });
+    $scope.getReportedComments();
   };
 
   // deletes a thread
@@ -151,6 +153,7 @@ angular.module('app').controller('adminController', function (adminService, $sta
     adminService.deleteThread(thread_id).then(function (resp) {
       return resp;
     });
+    $scope.getReportedThreads();
   };
 
   //dismiss thread report
@@ -158,6 +161,7 @@ angular.module('app').controller('adminController', function (adminService, $sta
     adminService.dismissThread(thread_id).then(function (resp) {
       return resp;
     });
+    $scope.getReportedThreads();
   };
 
   //this gets the session and pulls the displayName from it
@@ -214,7 +218,74 @@ angular.module('app').controller('homeCtrl', function ($scope, $stateParams, hom
 });
 'use strict';
 
-angular.module('app').controller('forumCtrl', function (authService, $scope, $stateParams, homeSrv) {
+angular.module('app').controller('forumCtrl', function ($http, $window, adminService, authService, $scope, $stateParams, homeSrv) {
+
+  // get current user
+  var current_user = void 0;
+  $http({
+    method: "GET",
+    url: '/auth/me'
+  }).then(function (response) {
+
+    if (!response.data.user) {
+      $window.location = "http://www.rhapsodyfestival.com/auth";
+      defer.reject();
+    } else {
+      //console.log(response.data.user[2])
+      //  console.log(response.data.user)
+      $scope.display_name = response.data.user[1];
+      $scope.user_id = response.data.user[0];
+      var _current_user = response.data.user[0];
+
+      if (response.data.user[2] === 1) {
+        // hide the admin button
+        //console.log("its 0")
+        $scope.moderate = true;
+      } else if (response.data.user[2] === 0) {
+        $scope.moderate = false;
+        //console.log('its not 0')
+      }
+
+      $scope.updated_threads = [];
+      $scope.display_updates = function (current_user) {
+
+        homeSrv.display_updates(current_user).then(function (resp) {
+          $scope.thread_updates = resp;
+          var loop_these = resp;
+          var dupes_removed = [];
+          for (var i = 0; i < loop_these.length; i++) {
+            if (dupes_removed.indexOf(loop_these[i]) == -1) dupes_removed.push(loop_these[i]);
+          }
+          dupes_removed.forEach(function (el) {
+            homeSrv.findThread(el).then(function (resp) {
+              $scope.updated_threads.push(resp.data[0]);
+            });
+          });
+        });
+      };
+      $scope.display_updates(_current_user);
+    }
+  }
+  // find the number of reported threads + reported comments
+  );$scope.getReported = function () {
+    var needMod = [];
+    adminService.getReportedComments().then(function (resp) {
+      resp.data.forEach(function (el) {
+        needMod.push(el);
+      });
+    });
+
+    adminService.getReportedThreads().then(function (resp) {
+      resp.data.forEach(function (el) {
+        needMod.push(el);
+      });
+      $scope.modNumber = needMod.length;
+      if (needMod.length < 1) {
+        $scope.moderate = false;
+      }
+    });
+  };
+  $scope.getReported();
 
   $scope.getThreads = function () {
 
@@ -285,7 +356,7 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
   }).then(function (response) {
 
     if (!response.data.user) {
-      $window.location = "http://localhost:3000/auth";
+      $window.location = "http://www.rhapsodyfestival.com/auth";
       defer.reject();
     } else {
       //console.log(response.data.user)
@@ -294,8 +365,20 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
     }
   }
 
+  // remove thread from feed_top if user has it in that array
+  );$scope.removeFromTop = function (user_id, thread_id) {
+    // console.log(user_id, thread_id)
+    threadService.removeFromTop(user_id, thread_id).then(function (resp) {
+      resp.forEach(function (el) {
+        if (el == thread_id) {
+          threadService.remove_top(user_id, thread_id);
+        }
+      });
+    });
+  };
+
   // display all the top level comments for a thread
-  );$scope.getcomments = function () {
+  $scope.getcomments = function () {
     //  console.log($scope.thread.thread_id)
     var data = $scope.thread.thread_id;
 
@@ -316,6 +399,8 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
     $scope.getcomments();
 
     $scope.isItStarred($scope.user_id, $scope.thread.thread_id);
+
+    $scope.removeFromTop($scope.user_id, $scope.thread.thread_id);
   }
   // console.log($stateParams.thread_id)
 
@@ -341,7 +426,7 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
     // console.log("controller sending", user_id, thread_id)
 
     threadService.unStarThis(user_id, thread_id).then(function (resp) {
-      console.log(resp);
+      //console.log(resp)
       $scope.starred = resp;
     });
   };
@@ -354,14 +439,23 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
       thread_id: $scope.thread.thread_id,
       parent_comment: 0,
       author_display: $scope.display_name,
-      comment_content: $scope.comment_content
+      comment_content: $scope.comment_content,
+      author_id: $scope.user_id
     };
     if (data.comment_content.length >= 5) {
       threadService.createComment(data).then(function (resp) {
         // after clicking the button, do this!
         $scope.comment_content = "";
         //$scope.comments.push(data)
-        $scope.getcomments();
+        $scope.getcomments
+
+        // find every user that has this thread starred!
+        ();threadService.feed_top(data
+
+        // add this thread to their feed_top array
+
+
+        );
       });
     } else {
       alert("comments must have at least 5 characters!");
@@ -384,7 +478,20 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
   };
 
   // hide a comment thread =========================================== HIDE
-  $scope.togglecomment = function (comment_id) {};
+
+  $scope.onHide = true;
+  $scope.togglecomment = function ($event, comment) {
+    if (angular.element($event.target).parent().parent().parent().hasClass('hide')) {
+      angular.element($event.target).parent().parent().parent().removeClass('hide');
+      comment.hideShow = "[–]";
+      angular.element($event.target).removeClass('showBlue');
+    } else {
+      angular.element($event.target).parent().parent().parent().addClass('hide');
+      angular.element($event.target).val();
+      comment.hideShow = "[+]";
+      angular.element($event.target).addClass('showBlue');
+    }
+  };
 
   // post a reply comment
   //show the reply action area
@@ -429,7 +536,7 @@ angular.module('app').directive('comments', function ($compile) {
       //check if this member has children
       if (scope.comment.children.length > 0) {
         // append the collection directive to this element
-        $compile('<comments comment="comment" ng-repeat="comment in comment.children"></comments>')(scope, function (cloned, scope) {
+        $compile('<comments class="ng-scope id_{{comment.comment_id}}" comment="comment" ng-repeat="comment in comment.children"></comments>')(scope, function (cloned, scope) {
           element.append(cloned);
         });
       }
@@ -631,6 +738,24 @@ angular.module('app').service('homeSrv', function ($http) {
     });
   };
 
+  // see if current user has any thread updates
+  this.display_updates = function (current_user) {
+    // console.log(current_user)
+    return $http({
+      url: '/get_feed_top/' + current_user,
+      method: 'GET'
+    }).then(function (resp) {
+      // return (resp);
+      var feed_top = resp.data[0].feed_top;
+      if (feed_top == null || feed_top.length < 1) {
+        return false;
+      } else {
+
+        return feed_top;
+      }
+    });
+  };
+
   this.findThread = function (id) {
     return $http({
       url: '/thread/' + id,
@@ -658,6 +783,26 @@ angular.module('app').service('threadService', function ($http) {
       data: data
     });
   },
+
+  // remove the thread from top feed
+  // first get the users top feed data
+  this.removeFromTop = function (user_id, thread_id) {
+    return $http({
+      method: "get",
+      url: "/get_feed_top/" + user_id
+    }).then(function (resp) {
+      return resp.data[0].feed_top;
+    });
+  },
+  // perform the removal
+  this.remove_top = function (user_id, thread_id) {
+    return $http({
+      method: "PUT",
+      url: "/remove_top/" + user_id + "/" + thread_id
+
+    });
+  },
+
   // mark new thread as unread for all users
   this.unReadThread = function (data) {
     return $http({
@@ -718,6 +863,26 @@ angular.module('app').service('threadService', function ($http) {
       method: "POST",
       url: "/newcomment",
       data: data
+    });
+  }, this.feed_top = function (data) {
+    var thread_author = data.author_id;
+    console.log(data.thread_id);
+    var thread_id = data.thread_id;
+    return $http({
+      method: "PUT",
+      url: "/feed_top/" + data.thread_id
+    }).then(function (resp) {
+
+      var mod = resp.data;
+      mod.forEach(function (el) {
+        //console.log(el)
+        if (el.id !== thread_author) {
+          return $http({
+            method: "PUT",
+            url: "/add_feed_top/" + thread_id + "/" + el.id
+          });
+        }
+      });
     });
   },
 

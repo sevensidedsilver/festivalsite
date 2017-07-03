@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
-
+const config = require('../config.js');
 
 
 const moment = require('moment');
@@ -74,7 +74,7 @@ passport.use(new Auth0Strategy({
   // callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
 
   // local:
-  callbackURL: 'http://localhost:3000' + '/auth/callback'
+  callbackURL: 'http://www.rhapsodyfestival.com' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
   //console.log(profile)

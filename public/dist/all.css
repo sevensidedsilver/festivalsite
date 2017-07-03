@@ -201,8 +201,7 @@ a#logolink {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
-  flex-direction: column;
-  color: red; }
+  flex-direction: column; }
 
 .footerRow {
   display: -webkit-box;
@@ -416,7 +415,51 @@ button.flatRainbow:hover {
   border-width: 1px;
   border-radius: 9px;
   padding: 5px;
-  border-color: #ead8d8; }
+  border-color: #ead8d8;
+  margin-top: 3vh; }
+
+.updatesList {
+  padding: 4px; }
+
+.updatesList h2 {
+  font-size: 1.4em;
+  margin-bottom: 2vh; }
+
+.updatesList h3 {
+  font-size: 2em;
+  cursor: pointer; }
+
+.buttonContain {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 75%;
+  min-width: 234px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+button.admin.ng-binding {
+  width: 108px;
+  padding: 9px 5px;
+  background: var(--red);
+  color: #484848;
+  border: 0;
+  font-size: 15px;
+  margin-bottom: 11px;
+  margin-top: 14px;
+  cursor: url("../app/images/cursor.png"), auto; }
+
+button.admin.ng-binding:hover {
+  background: black;
+  color: red; }
 
 .threadOuter {
   display: -webkit-box;
@@ -433,7 +476,10 @@ button.flatRainbow:hover {
   align-items: center; }
 
 .threadOuter h2 {
-  margin-top: 5px; }
+  margin-top: 3vh; }
+
+h2.newComments {
+  margin-top: 0; }
 
 .threadsContainer {
   border-style: solid;
@@ -669,6 +715,8 @@ ul.flat-list.buttons {
   .threadsContainer {
     max-width: 75%; }
   .searchThreads {
+    max-width: 75%; }
+  .updates {
     max-width: 75%; } }
 
 .topSlideContain.ng-scope {
@@ -1154,7 +1202,7 @@ h2 {
   font-size: 2em; }
 
 .inTheThread {
-  background: url("../app/images/space-bg.png"); }
+  background: url("../app/images/space-bg.png") fixed; }
 
 .threadTopper {
   background: rgba(255, 255, 255, 0.88);
@@ -1224,7 +1272,9 @@ button.reportThread:hover {
 
 comments.ng-scope {
   display: block;
-  padding-top: 11px; }
+  padding-top: 11px;
+  -webkit-transition: .5s;
+  transition: .5s; }
 
 comments comments {
   padding: 5px 4px 4px 10px;
@@ -1297,11 +1347,25 @@ li.reply-button {
   padding: 3px;
   background: var(--blue);
   border-radius: 5px;
-  cursor: url("../app/images/cursor.png"), auto; }
+  cursor: url("../app/images/cursor.png"), auto;
+  -webkit-transition: .3s;
+  transition: .3s; }
+
+li.reply-button:hover {
+  letter-spacing: 2px;
+  -webkit-transition: .3s;
+  transition: .3s; }
 
 li.report-button {
   padding: 3px;
-  cursor: alias; }
+  cursor: alias;
+  -webkit-transition: .3s;
+  transition: .3s; }
+
+li.report-button:hover {
+  color: var(--red);
+  -webkit-transition: .3s;
+  transition: .3s; }
 
 button.postReply:hover {
   -webkit-animation: rainbow 1s infinite;
@@ -1328,6 +1392,42 @@ comments comments comments comments a.comment_author.ng-binding {
 
 comments comments comments time.ng-binding {
   color: #e7e7e7; }
+
+comments comments comments comments comments {
+  color: #d1d1d1; }
+
+comments comments comments comments comments .reply-button {
+  color: #000000; }
+
+comments comments comments comments comments comments comments {
+  color: #e9e9e9; }
+
+comments comments comments comments comments comments comments .reply-button {
+  color: #000000; }
+
+/*
+                                  HIDE COMMENTS                =-=-=-=-=-*/
+.hide comments {
+  display: none;
+  -webkit-transition: .5s;
+  transition: .5s; }
+
+.hide {
+  -webkit-transition: .5s;
+  transition: .5s; }
+
+.hide div div {
+  display: none; }
+
+a.expand.ng-binding {
+  font-size: 14px;
+  font-weight: 900; }
+
+.hidePink {
+  color: var(--pink); }
+
+.showBlue {
+  color: var(--blue); }
 
 @media only screen and (min-width: 600px) {
   .inTheThread.ng-scope {

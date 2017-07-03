@@ -7,7 +7,7 @@ angular.module('app').controller('thread', function($scope, $state, threadServic
    }).then((response) => {
 
          if(!response.data.user) {
-             $window.location = "http://localhost:3000/auth"
+             $window.location = "http://www.rhapsodyfestival.com/auth"
              defer.reject()
          } else {
            //console.log(response.data.user)
