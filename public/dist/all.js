@@ -112,34 +112,6 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
 });
 'use strict';
 
-angular.module('app').directive('comments', function ($compile) {
-  return {
-    restrict: "E",
-    // scope: {
-    //   comment: "="
-    // },
-    templateUrl: "../app/directives/threadTemplate.html",
-    link: function link(scope, element, attrs) {
-      //check if this member has children
-      if (scope.comment.children.length > 0) {
-        // append the collection directive to this element
-        $compile('<comments class="ng-scope id_{{comment.comment_id}}" comment="comment" ng-repeat="comment in comment.children"></comments>')(scope, function (cloned, scope) {
-          element.append(cloned);
-        });
-      }
-    }
-
-    // compile: function(element) {
-    //     // Use the compile function from the RecursionHelper,
-    //     // And return the linking function(s) which it returns
-    //     return recursionHelper.compile(element);
-    // }
-  };
-});
-
-// templateUrl: "../app/directives/threadTemplate.html"
-'use strict';
-
 angular.module('app').controller('adminController', function (adminService, $state, threadService, authService, $scope, $http, $window, $stateParams, homeSrv) {
 
   // get all reported comments
@@ -551,6 +523,34 @@ angular.module('app').controller('thread', function ($scope, $state, threadServi
 
   // END OF MODULE ///////////////////////////////////////////////////////////////
 });
+'use strict';
+
+angular.module('app').directive('comments', function ($compile) {
+  return {
+    restrict: "E",
+    // scope: {
+    //   comment: "="
+    // },
+    templateUrl: "../app/directives/threadTemplate.html",
+    link: function link(scope, element, attrs) {
+      //check if this member has children
+      if (scope.comment.children.length > 0) {
+        // append the collection directive to this element
+        $compile('<comments class="ng-scope id_{{comment.comment_id}}" comment="comment" ng-repeat="comment in comment.children"></comments>')(scope, function (cloned, scope) {
+          element.append(cloned);
+        });
+      }
+    }
+
+    // compile: function(element) {
+    //     // Use the compile function from the RecursionHelper,
+    //     // And return the linking function(s) which it returns
+    //     return recursionHelper.compile(element);
+    // }
+  };
+});
+
+// templateUrl: "../app/directives/threadTemplate.html"
 'use strict';
 
 angular.module('app').service('adminService', function ($http) {

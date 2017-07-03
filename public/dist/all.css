@@ -1039,7 +1039,8 @@ i.fa.fa-fire-extinguisher.fa-9 {
 .third p {
   font-size: 1.2em;
   max-width: 293px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  line-height: 2em; }
 
 .third button {
   width: 213px;
