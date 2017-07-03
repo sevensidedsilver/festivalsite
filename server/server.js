@@ -251,6 +251,4 @@ app.get('/getallcomments/:id' , threadController.getallcomments)
 app.get('/getchildcomments/:id', forumController.getChildComments)
 
 // LISTENING ON PORT ===============================
-app.listen(port, () => {
-	console.log(`magic happens on port ${port}`)
-})
+app.listen(process.env.PORT || 5000)
