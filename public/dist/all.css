@@ -853,7 +853,7 @@ button.homeForumButton:hover {
   flex-direction: column;
   -ms-flex-pack: distribute;
   justify-content: space-around;
-  background: rgba(156, 150, 232, 0.8);
+  background: rgba(156, 150, 232, 0.4);
   padding-bottom: 60px; }
 
 .whatGreet {
