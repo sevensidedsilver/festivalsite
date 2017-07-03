@@ -541,7 +541,8 @@ h2.newComments {
   border-width: 1px;
   border-radius: 9px;
   padding: 5px;
-  border-color: #ead8d8; }
+  border-color: #ead8d8;
+  margin-bottom: 50px; }
 
 button.add-post {
   width: 108px;

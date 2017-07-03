@@ -536,7 +536,7 @@ angular.module('app').directive('comments', function ($compile) {
       //check if this member has children
       if (scope.comment.children.length > 0) {
         // append the collection directive to this element
-        $compile('<comments class="ng-scope id_{{comment.comment_id}}" comment="comment" ng-repeat="comment in comment.children"></comments>')(scope, function (cloned, scope) {
+        $compile('<comments class="ng-scope id_{{comment.comment_id}}" comment="comment" ng-repeat="comment in comment.children | orderBy: &quot;-created_at&quot;""></comments>')(scope, function (cloned, scope) {
           element.append(cloned);
         });
       }
