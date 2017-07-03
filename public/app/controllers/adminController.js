@@ -24,6 +24,7 @@ $scope.deleteComment = function(comment_id){
   adminService.deleteComment(comment_id).then(function(resp){
     return resp
   })
+  $scope.getReportedComments();
 }
 
 // dismiss comment reported
@@ -32,6 +33,7 @@ $scope.dismissComment = function(comment_id){
   adminService.dismissComment(comment_id).then(function(resp){
     return resp
   })
+  $scope.getReportedComments();
 }
 
 // deletes a thread
@@ -39,6 +41,7 @@ $scope.deleteThread = function(thread_id){
   adminService.deleteThread(thread_id).then(function(resp){
     return resp
   })
+  $scope.getReportedThreads();
 }
 
 //dismiss thread report
@@ -46,6 +49,7 @@ $scope.dismissThread = function(thread_id){
   adminService.dismissThread(thread_id).then(function(resp){
     return resp
   })
+  $scope.getReportedThreads();
 }
 
 

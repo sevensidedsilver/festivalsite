@@ -1,7 +1,7 @@
 
 
-<div class="top-level-comment">
-    <p class="tagline"><a href="javascript:void(0)" class="expand" ng-click="togglecomment(comment.comment_id)">[–]</a>
+<div class="top-level-comment id_{{comment.comment_id}}">
+    <p class="tagline"><a href class="expand hidePink" ng-click="togglecomment($event, comment)">{{comment.hideShow}}</a>
       <a href="#" class="comment_author">{{comment.author_display}}</a>
       <time>{{comment.timeAgo}}</time>
 

@@ -62,20 +62,25 @@ massive(process.env.CONNECTION_STRING).then(db => {
 
 
 
-
 // initialize auth0 =========================================
 app.use(passport.initialize())
 app.use(passport.session())
 
 passport.use(new Auth0Strategy({
-  domain: process.env.DOMAIN,
-  clientID: process.env.CLIENTID,
-  clientSecret: process.env.CLIENTSECRET,
-
+  domain: config.auth0.domain,
+  clientID: config.auth0.clientID,
+  clientSecret: config.auth0.clientSecret,
+  //hosted:
+  // callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
 
   // local:
-  callbackURL: '/auth/callback'
+  callbackURL: 'http://localhost:3000' + '/auth/callback'
 }, function(accessToken, refreshToken, extraParams, profile, done){
+
+  //console.log(profile)
+
+  // these are the specific properties we pull from the profile object
+  // sent to us by auth0's server
 
   let user = [
     profile.id,
@@ -85,13 +90,21 @@ passport.use(new Auth0Strategy({
   //if user doesnt EXISTS, add to database
   // looks for existing id
   app.get('db').ifUserExists([user[0]]).then(function(resp){
+    //console.log(resp.length)
     if (resp.length < 1) {
       app.get('db').create_user(user).then(function(resp){
         //console.log(user)
         return done(null, user);
       })
     } else {
-      //console.log("now this" , user)
+      //user = resp[0]
+      user = [
+        resp[0].id,
+        resp[0].username,
+        resp[0].admin
+      ]
+
+      //console.log(user)
       return done(null, user);
     }
     //return done(null, user);
@@ -184,9 +197,18 @@ app.put('/unreadthread', notificationsController.new_unread_for_all)
 // post new comment ========================== POST NEW comment
 app.post('/newcomment', forumController.new_comment)
 
+// feed top for users with thread starred! ================= FEED top
+app.put('/feed_top/:thread_id', threadController.feed_top)
+app.put('/add_feed_top/:thread_id/:user_id', threadController.add_feed_top)
 
 // REPORT a comment ============================ REPORT
 app.put('/reportcomment/:id', forumController.reportcomment)
+
+// get all feed_top for user_id
+app.get('/get_feed_top/:current_user', forumController.get_feed_top)
+//remove top feed once user sees thread
+app.put('/remove_top/:user_id/:thread_id', forumController.remove_top)
+
 
 
 // is current thread starred ====== STAR
@@ -228,7 +250,7 @@ app.get('/getallcomments/:id' , threadController.getallcomments)
 // GET all children comments for specific comment id
 app.get('/getchildcomments/:id', forumController.getChildComments)
 
-// listen app
-app.listen(app.get('port'), () => {
-  console.log("magic happens on port", app.get('port'))
+// LISTENING ON PORT ===============================
+app.listen(port, () => {
+	console.log(`magic happens on port ${port}`)
 })

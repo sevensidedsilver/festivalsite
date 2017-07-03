@@ -14,8 +14,23 @@ angular.module('app').controller('thread', function($scope, $state, threadServic
            $scope.display_name = response.data.user[1];
            $scope.user_id = response.data.user[0]
 
+
          }
      })
+
+  // remove thread from feed_top if user has it in that array
+  $scope.removeFromTop = function(user_id, thread_id) {
+    // console.log(user_id, thread_id)
+    threadService.removeFromTop(user_id, thread_id).then((resp)=>{
+        resp.forEach((el)=>{
+          if (el == thread_id) {
+            threadService.remove_top(user_id, thread_id)
+          }
+
+        })
+    })
+  }
+
 
   // display all the top level comments for a thread
     $scope.getcomments = function(){
@@ -44,6 +59,7 @@ angular.module('app').controller('thread', function($scope, $state, threadServic
 
     $scope.isItStarred($scope.user_id, $scope.thread.thread_id)
 
+    $scope.removeFromTop($scope.user_id, $scope.thread.thread_id)
   })
   // console.log($stateParams.thread_id)
 
@@ -72,7 +88,7 @@ $scope.unStarThis = function(user_id, thread_id){
   // console.log("controller sending", user_id, thread_id)
 
   threadService.unStarThis(user_id, thread_id).then(function(resp){
-    console.log(resp)
+    //console.log(resp)
     $scope.starred = resp
   })
 }
@@ -94,7 +110,8 @@ $scope.unStarThis = function(user_id, thread_id){
       thread_id: $scope.thread.thread_id,
       parent_comment: 0,
       author_display: $scope.display_name,
-      comment_content: $scope.comment_content
+      comment_content: $scope.comment_content,
+      author_id: $scope.user_id
     }
     if (data.comment_content.length >= 5) {
       threadService.createComment(data).then(function(resp){
@@ -102,6 +119,14 @@ $scope.unStarThis = function(user_id, thread_id){
         $scope.comment_content = "";
         //$scope.comments.push(data)
         $scope.getcomments()
+
+        // find every user that has this thread starred!
+        threadService.feed_top(data)
+
+        // add this thread to their feed_top array
+
+
+
       })
     } else {alert("comments must have at least 5 characters!")}
 
@@ -123,7 +148,20 @@ $scope.reportThread = function(thread_id){
   }
 
 // hide a comment thread =========================================== HIDE
-  $scope.togglecomment = function(comment_id) {
+
+  $scope.onHide = true
+  $scope.togglecomment = function($event, comment) {
+    if (angular.element($event.target).parent().parent().parent().hasClass('hide')){
+          angular.element($event.target).parent().parent().parent().removeClass('hide');
+          comment.hideShow = "[–]"
+          angular.element($event.target).removeClass('showBlue')
+    } else {
+          angular.element($event.target).parent().parent().parent().addClass('hide');
+          angular.element($event.target).val()
+          comment.hideShow = "[+]"
+          angular.element($event.target).addClass('showBlue')
+    }
+
 
   }
 

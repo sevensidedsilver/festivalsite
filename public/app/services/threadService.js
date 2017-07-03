@@ -10,6 +10,28 @@ this.postThread = function(data){
     data: data
   })
 },
+
+// remove the thread from top feed
+// first get the users top feed data
+this.removeFromTop = function(user_id, thread_id){
+  return $http({
+    method: "get",
+    url: "/get_feed_top/" + user_id,
+  }).then((resp)=>{
+    return (resp.data[0].feed_top)
+  })
+},
+// perform the removal
+this.remove_top = function(user_id, thread_id){
+  return $http({
+    method: "PUT",
+    url: "/remove_top/" + user_id + "/" + thread_id
+
+  })
+},
+
+
+
 // mark new thread as unread for all users
 this.unReadThread = function(data){
   return $http({
@@ -79,8 +101,34 @@ this.createComment = function(data){
     url: "/newcomment",
     data: data
   })
+},
+
+this.feed_top = function(data) {
+  let thread_author = data.author_id
+  console.log(data.thread_id)
+  let thread_id = data.thread_id
+  return $http({
+    method: "PUT",
+    url: "/feed_top/" + data.thread_id
+  }).then(function(resp){
 
 
+    let mod = (resp.data)
+    mod.forEach(function(el){
+      //console.log(el)
+      if (el.id !== thread_author){
+        return $http({
+          method:"PUT",
+          url:"/add_feed_top/" + thread_id + "/" + el.id
+        })
+
+      }
+
+
+
+    })
+
+  })
 },
 
 // report a comment

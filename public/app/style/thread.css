@@ -1,5 +1,5 @@
 .inTheThread {
-  background: url("../app/images/space-bg.png");
+  background: url("../app/images/space-bg.png") fixed;
 
 }
 
@@ -75,6 +75,7 @@ button.reportThread:hover {
 comments.ng-scope {
     display: block;
     padding-top: 11px;
+    transition: .5s;
 }
 
 comments comments {
@@ -170,12 +171,21 @@ li.reply-button {
     background: var(--blue);
     border-radius: 5px;
     cursor: url("../app/images/cursor.png"), auto;
+        transition: .3s;
 
 }
-
+li.reply-button:hover {
+    letter-spacing: 2px;
+        transition: .3s;
+}
 li.report-button {
     padding: 3px;
     cursor: alias;
+    transition: .3s;
+}
+li.report-button:hover {
+    color: var(--red);
+    transition: .3s;
 }
 
 button.postReply:hover {
@@ -209,6 +219,45 @@ comments comments comments comments a.comment_author.ng-binding {
 
 comments comments comments time.ng-binding {
     color: #e7e7e7;
+}
+comments comments comments comments comments  {
+    color: #d1d1d1;
+}
+comments comments comments comments comments .reply-button {
+    color: #000000;
+}
+comments comments comments comments comments comments comments {
+    color: #e9e9e9;
+}
+comments comments comments comments comments comments comments .reply-button {
+    color: #000000;
+}
+
+
+/*
+                                  HIDE COMMENTS                =-=-=-=-=-*/
+
+.hide comments {
+  display: none;
+  transition: .5s;
+}
+.hide {
+  transition: .5s;
+}
+.hide div div {
+    display: none;
+}
+a.expand.ng-binding {
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.hidePink {
+    color: var(--pink);
+}
+
+.showBlue {
+    color: var(--blue);
 }
 
 @media only screen and (min-width: 600px) {

@@ -34,6 +34,22 @@ module.exports = {
     })
   },
 
+// get all feed_top threads for specific user
+  get_feed_top: function(req, res){
+    let current_user = req.params.current_user
+    req.app.get('db').get_feed_top(current_user).then(function(resp){
+      res.status(200).send(resp)
+    })
+  },
+
+// remove thread from users top feed_top
+remove_top: function(req, res){
+  let current_user = req.params.user_id
+  let thread = req.params.thread_id
+  req.app.get('db').remove_top_feed([current_user, thread]).then(function(resp){
+    res.status(200).send(resp)
+  })
+},
 
 //create new thread
   new_thread : function(req, res) {

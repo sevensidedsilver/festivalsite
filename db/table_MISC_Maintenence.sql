@@ -29,10 +29,13 @@ create table users
   (id text,
    username text,
    admin int,
-   new_threads text,
-   starred_threads text
+   starred_threads int[],
+   feed_top int[]
   )
 
+  update users
+  set starred_threads = array_append(starred_threads, '3')
+  where id = 'twitter|723378144'
 
 
 -- notification abstraction

@@ -4,17 +4,27 @@
 
 <h2>Rhaphorum - The Rhapsody Forum</h2>
 
-<!-- <div class="updates">
+<div class="updates" ng-if="thread_updates">
   <div class="updatesList">
-    <div class="oneUpdate">
-      <h2>New comments on this thread: [thread title....]</h2>
+    <h2 class = "newComments">New Comments on Threads You Starred</h2>
+    <div class="oneUpdate threadTitle" ng-repeat="thread in updated_threads">
+
+      <h3 ui-sref="thread({thread_id: thread.thread_id})">{{thread.thread_title}}</h3>
+      <h4>by {{thread.author_display}}</h4>
+
     </div>
   </div>
-</div> -->
-
-<div class="newThreadContain">
-  <button ui-sref="addpost" class="add-post" type="button" name="button">New Post</button>
 </div>
+<div class="buttonContain">
+  <div class="newThreadContain">
+    <button ui-sref="addpost" class="add-post" type="button" name="button">New Post</button>
+  </div>
+
+  <div class="modContain" ng-if="moderate">
+    <button ui-sref="admin" class="admin" type="button" name="button">Moderate ({{modNumber}})</button>
+  </div>
+</div>
+
 
 
 
@@ -24,7 +34,7 @@
       <input ng-model="query" type="text" name="search" placeholder="seach by title or author">
     </div>
 
-    <div class="threadslist" ng-repeat="thread in threads | filter:query | orderBy: thread_id : true">
+    <div class="threadslist" ng-repeat="thread in threads | orderBy: '-thread_id'">
 
 
 

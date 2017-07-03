@@ -1,2 +1,2 @@
-select starred_threads from users
+select * from users
 where id = $1

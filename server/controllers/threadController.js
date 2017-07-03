@@ -5,7 +5,7 @@ var moment = require('moment');
 
 module.exports= {
 
-  // get all child comments for a specific comment id
+// get all child comments for a specific comment id
   getChildComments: function(req, res){
     let comment_id = req.params.id
     req.app.get('db').getChildComments([comment_id]).then(function(resp){
@@ -14,95 +14,54 @@ module.exports= {
   },
 
 
+  // feed_top ----- add the thread to the feed_top array for users with the thread starred
+
+feed_top: function(req, res){
+  // fetch user objects who have this thread starred
+  let these_users
+  let thread_id = parseInt(req.params.thread_id)
+
+  req.app.get('db').users_starred_thread(thread_id).then(function(resp){
+    these_users = resp
+    res.status(200).send(resp)
+  })
+},
+add_feed_top: function(req, res){
+
+    req.app.get('db').feed_top_add(req.params.thread_id, req.params.user_id).then(function(resp){
+      res.status(200).send('added')
+    })
+
+},
 
 
 //////   is the current thread starred? ====== star
 isItStarred: function(req, res){
   let user_id = req.params.user_id
-  let thread_id = req.params.thread_id
-  // console.log(req.params)
+  let thread_id = parseInt(req.params.thread_id)
   req.app.get('db').isItStarred([user_id]).then(function(resp){
-    // console.log(resp[0].starred_threads)
-    //there's no starred_threads
-    if (resp[0].starred_threads === null) {
-      res.status(200).send(false) }
-    // } else if (resp[0].starred_threads.length < 2){
-    //   res.status(200).send(false)
-    // }
-      else {
-        let starred_threads = resp[0].starred_threads.split(', ')
-        // console.log(starred_threads)
-        if (starred_threads.indexOf(thread_id.toString()) !== -1) {
-          res.status(200).send(true)
-        } else if (starred_threads.indexOf(thread_id.toString()) === -1){
-          res.status(200).send(false)
-        }
+    let starred_threads = (resp[0].starred_threads)
+    if (starred_threads == null || starred_threads.indexOf(thread_id) === -1) {
+      res.status(200).send(false)
+    } else {
+      res.status(200).send(true)
     }
   })
 },
-
-
-
-
-
-
-
-
-
-
-// toggle the fucking star on
+// toggle the star on
 starThis: function(req, res){
   let user_id = req.params.user_id
   let thread_id = req.params.thread_id
-  req.app.get('db').isItStarred([user_id]).then(function(resp){
-    let starred_threads = resp[0].starred_threads
-    // if there's no starred threads
-    if (starred_threads === null) {
-      req.app.get('db').newStar([thread_id, user_id]).then(function(resp){
-        res.status(200).send(true)
-      })
-    } else if (starred_threads.indexOf(',') === -1) {
-      // console.log('there is only one starred thread')
-      starred_threads = starred_threads.concat(", " + thread_id)
-      req.app.get('db').newStar([starred_threads, user_id]).then(function(resp){
-        res.status(200).send(true)
-      })
-    } else {
-      // there must be multiple threads starred
-      starred_threads = resp[0].starred_threads.split(', ')
-      starred_threads.push(thread_id.toString())
-      starred_threads = (starred_threads.join(", "))
-      req.app.get('db').newStar([starred_threads, user_id]).then(function(resp){
-        res.status(200).send(true)
-      })
-    }
+  req.app.get('db').newStar([user_id, thread_id]).then(function(resp){
+    res.status(200).send(true)
   })
 },
   // toggle the star off
   unStarThis: function(req, res){
     let user_id = req.params.user_id
     let thread_id = req.params.thread_id
-    req.app.get('db').isItStarred([user_id]).then(function(resp){
-      let starred_threads = (resp[0].starred_threads)
-      // one starred thread
-      if (starred_threads.indexOf(',') === -1) {
-        req.app.get('db').newStar([null, user_id]).then(function(resp){
-          res.status(200).send(false)
-        })
-      } else if (starred_threads.split(', ').length >= 2) {
-        //2 or more starred threads
-        starred_threads = starred_threads.split(', ')
-        //console.log(starred_threads)
-        //remove the star
-        starred_threads.splice(starred_threads.indexOf(thread_id.toString()), 1)
-        starred_threads = starred_threads.join(', ')
-        //console.log(starred_threads)
-        req.app.get('db').newStar([starred_threads, user_id]).then(function(resp){
-          res.status(200).send(false)
-        })
-      }
-
-
+    req.app.get('db').remove_star([user_id, thread_id]).then(function(resp){
+      res.status(200).send(false)
     })
   },
 
@@ -127,6 +86,7 @@ starThis: function(req, res){
           el.showCommentReplyTextBox = false;
           el.child_comment_content = ""
           el.children = []
+          el.hideShow = '[-]'
         })
 
 

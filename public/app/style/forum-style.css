@@ -18,6 +18,7 @@ button.flatRainbow:hover {
   background: black;
   cursor: url("../app/images/cursor.png"), auto;
   transition: .5s;
+
 }
 
 
@@ -29,6 +30,44 @@ button.flatRainbow:hover {
   border-radius: 9px;
   padding: 5px;
   border-color: rgb(234, 216, 216);
+  margin-top: 3vh;
+}
+
+.updatesList {
+    padding: 4px;
+}
+.updatesList h2 {
+    font-size: 1.4em;
+    margin-bottom: 2vh;
+}
+
+.updatesList h3 {
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.buttonContain {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 75%;
+    min-width: 234px;
+    flex-direction: column;
+  }
+button.admin.ng-binding {
+    width: 108px;
+    padding: 9px 5px;
+    background: var(--red);
+    color: #484848;
+    border: 0;
+    font-size: 15px;
+    margin-bottom: 11px;
+    margin-top: 14px;
+    cursor: url("../app/images/cursor.png"), auto;
+}
+button.admin.ng-binding:hover {
+  background: black;
+  color: red;
 }
 
 .threadOuter {
@@ -40,7 +79,11 @@ button.flatRainbow:hover {
   }
 
 .threadOuter h2 {
-    margin-top: 5px;
+    margin-top: 3vh;
+}
+
+h2.newComments {
+    margin-top: 0;
 }
 
 .threadsContainer {
@@ -316,4 +359,7 @@ ul.flat-list.buttons {
     .searchThreads {
         max-width:   75%;
     }
+    .updates {
+    max-width: 75%;
+}
 }
