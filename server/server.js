@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const Auth0Strategy = require('passport-auth0');
-const config = require('../config.js');
+
 
 
 const moment = require('moment');
@@ -67,9 +67,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 passport.use(new Auth0Strategy({
-  domain: config.auth0.domain,
-  clientID: config.auth0.clientID,
-  clientSecret: config.auth0.clientSecret,
+  domain: process.env.DOMAIN,
+  clientID: process.env.CLIENTID,
+  clientSecret: process.env.CLIENTSECRET,
   //hosted:
   // callbackURL: 'http://rhapsodyfestival.com' + '/auth/callback'
 
