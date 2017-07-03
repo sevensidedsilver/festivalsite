@@ -9,7 +9,14 @@
 
   <title>Rhapsody Festival | Eastern NC</title></head>
 <body ng-controller='homeCtrl'>
-
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
 
   <div id="nav">
 
@@ -82,45 +89,56 @@
   <ui-view></ui-view>
 
 
-  <footer>
-    <div class="footerbits">
-      <div class="footerRow">
-        <div class="footerColumn">
-          maybe a menu?
+    <footer>
+      <div class="footerbits">
+        <div class="footerRow">
+          <div class="footerColumn">
+            <a href="https://www.facebook.com/rhapsodyfestival/"><img class="fb-icon" src="./app/images/fb-icon.png" alt="facebook link"></a>
+
+
+            <div class="fb-like" data-href="https://www.facebook.com/rhapsodyfestival/" data-width="45" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+
+
+          </div>
+
+          <div class="footerColumn">
+            <div class="footerNav">
+              <li>HOME</li>
+              <li>FORUM</li>
+              <li>PREPARE</li>
+              <li>PRINCIPLES</li>
+              <li>FIRE</li>
+            </div>
+
+          </div>
+
         </div>
-        <div class="footerColumn">
-          maybe some contact info?
-        </div>
-        <div class="footerColumn">
-          maybe associated sites?
+
+
+
+        <div class="footerRow">
+          <div class="copyright">
+            <p>Copyright 2017</p>
+            <p>Design/Dev by Sean Ruffolo</p>
+          </div>
         </div>
       </div>
 
+    </footer>
 
 
-      <div class="footerRow">
-        <div class="copyright">
-          <p>Copyright 2017</p>
-          <p>Design/Dev by Sean Ruffolo</p>
-        </div>
-      </div>
-    </div>
-
-  </footer>
-
-
-</body>
+  </body>
 
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script> -->
-<!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.1/angular-moment.js"></script> -->
-<script src="https://use.fontawesome.com/983040db07.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/af.js"></script> -->
+  <!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.1/angular-moment.js"></script> -->
+  <script src="https://use.fontawesome.com/983040db07.js"></script>
 
-<script src="./dist/all.js"></script>
+  <script src="./dist/all.js"></script>
 
-</html>
+  </html>
