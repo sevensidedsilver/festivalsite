@@ -16,6 +16,7 @@ const moment = require('moment');
 var forumController = require('./controllers/forumControllers.js')
 var threadController = require('./controllers/threadController.js')
 var notificationsController = require('./controllers/notificationsControllers.js')
+const eventController = require('./controllers/eventControllers.js')
 
 
 // INITIATE EXPRESS APP & SET LISTENING PORT ================
@@ -170,7 +171,14 @@ app.get('/auth/logout', function(req, res) {
 
 
 
-
+// EVENT ENDPOINTS
+app.post('/create-event', eventController.newEvent)
+/// get all events
+app.get('/get-all-events', eventController.getAllEvents)
+// get one event by id
+app.get('/get-event/:id', eventController.getEvent)
+// mark event as over
+app.put('/event-happened/:id', eventController.eventOver)
 
 // FORUM endpoints ===========================================================
 app.get('/users', forumController.fetchUsers)

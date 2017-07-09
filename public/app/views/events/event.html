@@ -1,0 +1,39 @@
+<div style="height: 60px"></div>
+
+
+
+
+
+<section id="eventTitle">
+  <div class="disRow">
+    <div class="eventHeading">
+      <h1>{{event.title}}</h1>
+      <h2>{{event.location}}</h2>
+      <h3>{{event.date}}</h3>
+      <h4>{{event.starttime}} till {{event.endtime}}</h4>
+    </div>
+
+    <div class="eventImage">
+      <img class="imageOnPage" src="{{event.image}}" alt="{{event.title}}">
+    </div>
+  </div>
+
+
+
+  <div class="eventDesc">
+    <p>{{event.desc1}}</p>
+    <p>{{event.desc2}}</p>
+    <p>{{event.desc3}}</p>
+    <p>{{event.desc4}}</p>
+    <p>{{event.desc5}}</p>
+  </div>
+
+<div class="eventFb">
+  <a href="{{event.fbevent}}"><img id="fbEvent" src="./app/images/facebook-event.png" alt="join the event on facebook"></a>
+</div>
+
+
+
+
+
+</section>

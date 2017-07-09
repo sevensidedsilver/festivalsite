@@ -1,0 +1,46 @@
+.imageOnPage {
+  width: 100%;
+}
+
+.eventHeading h1.ng-binding {
+    font-size: 2.5em;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.eventHeading h2.ng-binding {
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.eventHeading h3, .eventHeading h4 {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 15px 0;
+}
+
+
+
+.eventImage {
+    max-width: 500px;
+    max-height: 900px;
+    margin: 0 auto;
+}
+
+.eventDesc {
+  margin-top: 19px;
+}
+.eventDesc p.ng-binding {
+    font-size: 1.4em;
+    line-height: 3em;
+    text-align: center;
+}
+.eventFb {
+    max-width: 300px;
+    margin: 40px auto;
+}
+#fbEvent {
+  max-width: 100%;
+
+}

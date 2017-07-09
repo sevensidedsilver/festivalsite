@@ -37,6 +37,28 @@ create table users
   set starred_threads = array_append(starred_threads, '3')
   where id = 'twitter|723378144'
 
+-- events
+create table events
+  (id serial primary key,
+   title text,
+   displayDate text,
+   date date,
+   startTime text,
+   endTime text,
+   location text,
+   goal text,
+   image text,
+   fbEvent text,
+   desc1 text,
+   desc2 text,
+   desc3 text,
+   desc4 text,
+   desc5 text,
+   upcoming int
+  )
+
+
+
 
 -- notification abstraction
 select * from comments

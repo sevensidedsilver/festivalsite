@@ -9,6 +9,36 @@ angular.module('app', ['ui.router']).config(function ($stateProvider, $urlRouter
     }).state('prepare', {
         url: '/prepare',
         templateUrl: "./app/views/prepare.html"
+    }).state('events', {
+        url: '/events',
+        templateUrl: "./app/views/events/events.html",
+        controller: "events"
+
+    }).state('event', {
+        url: '/event/:id',
+        templateUrl: "./app/views/events/event.html",
+        controller: "event"
+    }).state('create-event', {
+        url: '/create-event',
+        controller: "events",
+        templateUrl: "./app/views/events/create-event.html",
+        resolve: {
+            user: function user(authService, $state) {
+                return authService.getCurrentUser().then(function (response) {
+                    console.log(response.data.user[2]);
+                    if (response.data.user[2] === 0 || response.data.user[2] === undefined) {
+                        window.alert("Only admins can create events.");
+                        $state.go('forum');
+                    }
+
+                    if (!response.data) {
+                        window.location = "http://www.rhapsodyfestival.com/auth";
+                    }return response.data;
+                }).catch(function (err) {
+                    window.location = "http://www.rhapsodyfestival.com/auth";
+                });
+            }
+        }
     }).state('principles', {
         url: '/principles',
         templateUrl: "./app/views/principles.html",
@@ -215,6 +245,83 @@ angular.module('app').controller('homeCtrl', function ($scope, $stateParams, hom
 
 
   ();
+});
+'use strict';
+
+angular.module('app').controller('event', function ($scope, $stateParams, eventsService) {
+  // get the event to display
+  eventsService.getEvent($stateParams.id).then(function (resp) {
+
+    console.log(resp.data[0]);
+
+    $scope.event = resp.data[0];
+  });
+});
+'use strict';
+
+angular.module('app').controller('events', function ($scope, $state, threadService, $http, $window, $stateParams, eventsService) {
+  // only admins can create events, check if user is admin and display the "New event" button if so
+  $scope.isAdmin = false;
+  $http({
+    method: "GET",
+    url: '/auth/me'
+  }).then(function (response) {
+    if (response.data.user[2] === 1) {
+      $scope.isAdmin = true;
+    }
+  }
+
+  // create new event
+  );$scope.createEvent = function () {
+    var displayDate = $scope.date.toString();
+    displayDate = displayDate.substring(0, 15);
+
+    var event = {
+      title: $scope.title,
+      location: $scope.location,
+
+      displayDate: displayDate,
+      date: $scope.date,
+
+      startTime: $scope.startTime,
+      endTime: $scope.endTime,
+      goal: $scope.goal,
+      image: $scope.image,
+      fbEvent: $scope.fbEvent,
+      desc1: $scope.line1,
+      desc2: $scope.line2,
+      desc3: $scope.line3,
+      desc4: $scope.line4,
+      desc5: $scope.line5
+    };
+    console.log(event.date);
+    eventsService.createEvent(event);
+    $state.go('events');
+  };
+
+  // get all events for upcoming eventsng repeat
+  $scope.getAllEvents = function () {
+    eventsService.getAllEvents().then(function (resp) {
+
+      $scope.events = resp.data;
+
+      if ($scope.events.length < 1) {
+        $scope.noEvents = true;
+        console.log("no events");
+      }
+    });
+  };
+
+  $scope.getAllEvents
+
+  // mark an event as past
+  ();$scope.eventHappened = function (id) {
+    eventsService.eventHappened(id);
+
+    $scope.getAllEvents();
+  };
+
+  // end of controller ===============================
 });
 'use strict';
 
@@ -644,6 +751,46 @@ angular.module('app').service('authService', function ($http) {
       //console.log(res)
     }).catch(function (error) {
       //console.log(error)
+    });
+  };
+});
+'use strict';
+
+angular.module('app').service('eventsService', function ($http) {
+
+  this.createEvent = function (event) {
+    // console.log(event)
+    return $http({
+      url: '/create-event',
+      method: 'post',
+      data: event
+    });
+  };
+
+  // GET ALL EVENTS
+  this.getAllEvents = function () {
+    return $http({
+      method: 'GET',
+      url: '/get-all-events'
+    }).then(function (resp) {
+      //console.log(resp)
+      return resp;
+    });
+  };
+  // get one event for individual event page
+  this.getEvent = function (id) {
+    return $http({
+      method: "GET",
+      url: "/get-event/" + id
+    }).then(function (resp) {
+      return resp;
+    });
+  };
+
+  this.eventHappened = function (id) {
+    return $http({
+      method: "PUT",
+      url: "/event-happened/" + id
     });
   };
 });

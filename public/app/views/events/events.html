@@ -1,0 +1,43 @@
+<div style="height: 60px"></div>
+
+<section id="eventHead">
+  <div class="eventHead">
+    <h1>Fundraising Events Fuel Rhapsody!</h1>
+
+
+  <button ng-if="isAdmin" type="button" ui-sref="create-event" name="button">New Event</button>
+
+  </div>
+</section>
+
+<section id="eventList">
+
+
+<div class="eventsContain">
+
+  <div class="eventsJar">
+    <div ng-if="noEvents" class="noEvents">
+      <h2>There's No Upcoming Events!</h2>
+      <h3>Admins Can Make New Events</h3>
+      <h3>After logging into the forum</h3>
+    </div>
+
+    <div class="oneEvent" ng-repeat="event in events | orderBy: 'date'">
+      <h2 ui-sref="event({id: event.id})">{{event.title}}</h2>
+      <h3 class="date">{{event.displaydate}} at {{event.starttime}}</h3>
+
+
+      <button class="done" ng-if="isAdmin" ng-click="eventHappened(event.id)" type="button" name="button">Event Already Happened</button>
+    </div>
+
+
+</div>
+
+</div>
+
+
+<img class = "pooferGon" src="./app/images/poofergon2.jpg" alt="djGon with a poofer">
+
+
+
+</section>

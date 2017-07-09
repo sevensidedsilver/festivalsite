@@ -354,6 +354,133 @@ button.dismiss {
     -ms-flex-direction: column;
     flex-direction: column; } }
 
+.event h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 2em;
+  margin-top: 2em; }
+
+.event-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  max-width: 300px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 0 auto; }
+
+.event-form input {
+  margin-bottom: 3em;
+  margin-top: 1em; }
+
+button.create-event {
+  margin-bottom: 3em;
+  border: 0;
+  padding: 2em;
+  background: rgba(152, 255, 203, 0.83);
+  cursor: pointer; }
+
+.imageOnPage {
+  width: 100%; }
+
+.eventHeading h1.ng-binding {
+  font-size: 2.5em;
+  text-align: center;
+  margin-top: 30px; }
+
+.eventHeading h2.ng-binding {
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 10px; }
+
+.eventHeading h3, .eventHeading h4 {
+  font-size: 1.5em;
+  text-align: center;
+  margin: 15px 0; }
+
+.eventImage {
+  max-width: 500px;
+  max-height: 900px;
+  margin: 0 auto; }
+
+.eventDesc {
+  margin-top: 19px; }
+
+.eventDesc p.ng-binding {
+  font-size: 1.4em;
+  line-height: 3em;
+  text-align: center; }
+
+.eventFb {
+  max-width: 300px;
+  margin: 40px auto; }
+
+#fbEvent {
+  max-width: 100%; }
+
+#eventHead {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 13vh;
+  margin-bottom: 3vh;
+  font-size: 2em; }
+
+#eventList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-bottom: 10vh;
+  margin-top: 15vh; }
+
+.eventsContain.ng-scope {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.oneEvent.ng-scope {
+  margin-bottom: 4em;
+  cursor: url("../app/images/cursor.png"), auto;
+  -webkit-transition: .3s time;
+  transition: .3s time; }
+
+.oneEvent.ng-scope:hover {
+  color: #636363; }
+
+/*hide image unless wide screen*/
+img.pooferGon {
+  display: none; }
+
+.date {
+  font-size: 1.5em;
+  line-height: 2em;
+  color: #5b5b5b; }
+
+@media only screen and (min-width: 600px) {
+  img.pooferGon {
+    display: block; }
+  .eventsContain {
+    min-width: 310px;
+    margin-right: 20px; }
+  .eventsJar {
+    padding: 2%;
+    min-width: 311px; } }
+
 section {
   max-width: 100%; }
 

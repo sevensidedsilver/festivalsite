@@ -1,0 +1,55 @@
+<div style="height: 60px"></div>
+
+<div class="event">
+  <h1>This Will Create a New Fundraising Event</h1>
+
+
+
+  <div class="event-form">
+    <h3>Name of The Event (max 32 characters)</h3>
+    <input ng-model="title" maxlength="32" type="text" name="" placeholder="example: 'BASS BOUNCE 2: BREWTAL'S REVENGE'" value="">
+
+    <h3>Description (line 1) (max 64 characters)</h3>
+    <input ng-model="line1" maxlength="64" type="text" name="" placeholder="description of event" value="">
+
+    <h3>Description (line 2) (max 64 characters)</h3>
+    <input ng-model="line2" maxlength="64" type="text" name="" placeholder="description of event" value="">
+
+    <h3>Description (line 3) (max 64 characters)</h3>
+    <input ng-model="line3" maxlength="64" type="text" name="" placeholder="description of event" value="">
+
+    <h3>Description (line 4) (max 64 characters)</h3>
+    <input ng-model="line4" maxlength="64" type="text" name="" placeholder="description of event" value="">
+
+    <h3>Description (line 5) (max 64 characters)</h3>
+    <input ng-model="line5" maxlength="64" type="text" name="" placeholder="description of event" value="">
+
+    <h3>Location of The Event</h3>
+    <input ng-model="location" type="text" name="" placeholder="event location here" value="">
+
+    <h3>Date of The Event</h3>
+    <input ng-model="date" type="date" name="" value="">
+
+    <h3>Event Start Time</h3>
+    <input ng-model="startTime" type="text" name="" placeholder="The Starting Time" value="">
+
+    <h3>Event End Time</h3>
+    <input ng-model="endTime" type="text" name="" placeholder="The Ending Time" value="">
+
+    <h3>Fundraising Goal (optional):</h3>
+    <input ng-model="goal" type="text" name="" placeholder="enter something like '$1200'" value="">
+
+    <h3>Link to Event Image </h3>
+    <h4>(only link the image - if it's from facebook, right click and </h4>
+    <h4>click "open image in new tab" - then paste in the link of the page that opens with the image)</h4>
+    <h4>(Image will be resized to a max width of 700 pixels and/or max-height of 900 pixels)</h4>
+    <input ng-model="image" type="text" name="" placeholder="example https://scontent.fmkc1-1.fna.fbcdn.net/v/t31.0-8/18451771_10155223204470782_495559345205770031_o.jpg?oh=52e58873d4037350bfcbcf68efec73f4&oe=59D46D15" value="">
+
+    <h3>Link to Facebook Event Page Here</h3>
+    <input ng-model="fbEvent" type="text" name="" placeholder="example 'https://www.facebook.com/events/319034705126365/'" value="">
+
+    <button ng-click = "createEvent(event)" class="create-event" type="button" name="create-event">Create Event!</button>
+  </div>
+
+
+</div>

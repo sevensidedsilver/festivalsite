@@ -1,0 +1,67 @@
+#eventHead {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 13vh;
+  margin-bottom: 3vh;
+  font-size: 2em;
+}
+#eventList {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10vh;
+  margin-top: 15vh;
+}
+
+.eventsContain.ng-scope {
+    display: flex;
+    justify-content: center;
+}
+
+.oneEvent.ng-scope {
+    margin-bottom: 4em;
+    cursor: url("../app/images/cursor.png"), auto;
+    -webkit-transition: .3s time;
+    -o-transition: .3s time;
+    transition: .3s time;
+}
+.oneEvent.ng-scope:hover {
+    color: #636363;
+}
+/*hide image unless wide screen*/
+img.pooferGon {
+    display: none;
+}
+
+.date {
+  font-size: 1.5em;
+  line-height: 2em;
+  color: #5b5b5b;
+}
+
+
+
+.done{
+
+}
+
+
+
+
+
+
+
+@media only screen and (min-width: 600px) {
+  img.pooferGon {
+    display: block;
+  }
+  .eventsContain {
+      min-width: 310px;
+      margin-right: 20px;
+  }
+  .eventsJar {
+      padding: 2%;
+      min-width: 311px;
+  }
+
+}
